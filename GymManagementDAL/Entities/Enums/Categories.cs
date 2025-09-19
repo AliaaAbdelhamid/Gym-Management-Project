@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymManagementDAL.Entities
+namespace GymManagementDAL.Entities.Enums
 {
-	internal class TraineeEntity : GymUser
+	internal enum Categories
 	{
-
-
+		GeneralFitness = 1,
+		Yoga =2,
+		Boxing=3 ,
+		CrossFit =4
 	}
 }
