@@ -16,7 +16,7 @@ namespace GymManagementDAL.Entities
 		public string Street { get; set; } = null!;
 
 	}
-	internal abstract class GymUser : BaseEntity
+	public abstract class GymUser : BaseEntity
 	{
 		public string Name { get; set; } = null!;
 		public string Email { get; set; } = null!;
