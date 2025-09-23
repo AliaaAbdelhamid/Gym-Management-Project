@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace GymManagementDAL.Entities
 {
-	internal class TrainerEntity : GymUser
+	public class TrainerEntity : GymUser
 	{
 		public Specialties Specialties { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-	internal class MemberEntity : GymUser
+	public class MemberEntity : GymUser
 	{
 		public string? Photo { get; set; }
 		public HealthRecordEntity HealthRecord { get; set; } = null!;

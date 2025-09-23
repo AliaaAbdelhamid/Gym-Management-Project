@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace GymManagementDAL.Data.Contexts
 {
-	internal class GymDbContext:DbContext
+	public class GymDbContext:DbContext
 	{
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

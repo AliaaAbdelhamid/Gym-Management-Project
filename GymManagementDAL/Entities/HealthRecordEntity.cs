@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GymManagementDAL.Entities
 {
 	[Table("Members")]
-	internal class HealthRecordEntity
+	public class HealthRecordEntity
 	{
 		[Key]
 		public int Id { get; set; } // Shared PK - FK 
