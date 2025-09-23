@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-	internal class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+	internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 	{
 		private readonly GymDbContext _dbContext;
 
@@ -18,25 +18,25 @@ namespace GymManagementDAL.Repositories.Classes
 		{
 			_dbContext = dbContext;
 		}
-		public int Add(T entity)
+		public int Add(TEntity entity)
 		{
 			_dbContext.Add(entity);
 			return _dbContext.SaveChanges();
 		}
 
-		public int Delete(T entity)
+		public int Delete(TEntity entity)
 		{
 			_dbContext.Remove(entity);
 			return _dbContext.SaveChanges();
 		}
 
-		public IEnumerable<T> GetAll()
-			  => _dbContext.Set<T>().AsNoTracking().ToList();
+		public IEnumerable<TEntity> GetAll()
+			  => _dbContext.Set<TEntity>().AsNoTracking().ToList();
 
-		public T? GetById(int id)
-		  => _dbContext.Set<T>().Find(id);
+		public TEntity? GetById(int id)
+		  => _dbContext.Set<TEntity>().Find(id);
 
-		public int Update(T entity)
+		public int Update(TEntity entity)
 		{
 			_dbContext.Update(entity);
 			return _dbContext.SaveChanges();

@@ -12,8 +12,8 @@ namespace GymManagementDAL.Repositories.Classes
 	internal class MemberRepository : IMemberRepository
 	{
 		private readonly GymDbContext dbContext = new GymDbContext();
-		public MemberEntity? GetByIdAsync(int id) => dbContext.Members.Find(id);
-		public IEnumerable<MemberEntity> GetAllAsync() => dbContext.Members.ToList();
+		public MemberEntity? GetById(int id) => dbContext.Members.Find(id);
+		public IEnumerable<MemberEntity> GetAll() => dbContext.Members.ToList();
 		public int Add(MemberEntity member)
 		{
 			dbContext.Members.Add(member);
