@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GymManagementDAL.Entities.Enums
 {
 	[Flags]
-	internal enum Specialties : byte
+	public enum Specialties : byte
 	{
 		GeneralFitness = 1,
 		Yoga = 2,

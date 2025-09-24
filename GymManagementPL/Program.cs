@@ -1,4 +1,7 @@
 using GymManagementDAL.Data.Contexts;
+using GymManagementDAL.Data.DataSeed;
+using GymManagementDAL.Repositories.Classes;
+using GymManagementDAL.Repositories.Interfaces;
 
 namespace GymManagementPL
 {
@@ -12,7 +15,15 @@ namespace GymManagementPL
 			builder.Services.AddControllersWithViews();
 
 			builder.Services.AddDbContext<GymDbContext>();
+			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			var app = builder.Build();
+			
+			#region Data Seeding 
+			using var Scoope = app.Services.CreateScope();
+			var DataSeedingObject = Scoope.ServiceProvider.GetRequiredService<GymDbContext>();
+
+			GymDataSeeding.SeedData(DataSeedingObject); 
+			#endregion
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())

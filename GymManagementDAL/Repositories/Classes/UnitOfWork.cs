@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-	internal class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		public UnitOfWork(GymDbContext dbContext)
 		{

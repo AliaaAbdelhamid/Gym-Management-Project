@@ -14,7 +14,7 @@ namespace GymManagementDAL.Data.Configurations
 		public void Configure(EntityTypeBuilder<CategoryEntity> builder)
 		{
 			builder.Property(X => X.CategoryName)
-				.HasConversion<string>().HasColumnType("varchar(50)");
+				.HasColumnType("varchar(50)");
 
 	
 		}

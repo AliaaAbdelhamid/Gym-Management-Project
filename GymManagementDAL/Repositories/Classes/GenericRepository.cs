@@ -18,28 +18,29 @@ namespace GymManagementDAL.Repositories.Classes
 		{
 			_dbContext = dbContext;
 		}
-		public int Add(TEntity entity)
+		public void Add(TEntity entity)
 		{
 			_dbContext.Add(entity);
-			return _dbContext.SaveChanges();
 		}
 
-		public int Delete(TEntity entity)
+		public void Delete(TEntity entity)
 		{
 			_dbContext.Remove(entity);
-			return _dbContext.SaveChanges();
 		}
 
-		public IEnumerable<TEntity> GetAll()
-			  => _dbContext.Set<TEntity>().AsNoTracking().ToList();
-
+		public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
+		{
+			if (condition is not null)
+				return _dbContext.Set<TEntity>().AsNoTracking().Where(condition).ToList();
+			else
+				return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+		}
 		public TEntity? GetById(int id)
 		  => _dbContext.Set<TEntity>().Find(id);
 
-		public int Update(TEntity entity)
+		public void Update(TEntity entity)
 		{
 			_dbContext.Update(entity);
-			return _dbContext.SaveChanges();
 		}
 	}
 }

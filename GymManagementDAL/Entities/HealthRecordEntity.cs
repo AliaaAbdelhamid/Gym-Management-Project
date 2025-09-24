@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 namespace GymManagementDAL.Entities
 {
 	[Table("Members")]
-	public class HealthRecordEntity
+	public class HealthRecordEntity : BaseEntity
 	{
-		[Key]
-		public int Id { get; set; } // Shared PK - FK 
-		public decimal Height  { get; set; }
+		public decimal Height { get; set; }
 		public decimal Weight  { get; set; }
 		public string BloodType { get; set; } = null!;
-		public string Note { get; set; } = null!;
+		public string? Note { get; set; } 
 	}
 }

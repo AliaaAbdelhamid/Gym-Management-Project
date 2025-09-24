@@ -26,7 +26,7 @@ namespace GymManagementDAL.Repositories.Classes
 		}
 		public int Delete(int id)
 		{
-			var Member = GetByIdAsync(id);
+			var Member = GetById(id);
 			if (Member == null)
 				return 0;
 			dbContext.Members.Remove(Member);

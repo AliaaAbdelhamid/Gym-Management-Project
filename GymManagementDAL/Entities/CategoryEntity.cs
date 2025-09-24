@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-	public class CategoryEntity:BaseEntity
+	public class CategoryEntity : BaseEntity
 	{
-		public Categories CategoryName { get; set; }
+		public string CategoryName { get; set; }
 
 		public ICollection<SessionEntity> Sessions { get; set; } = null!;
-
 	}
 }
