@@ -17,20 +17,19 @@ namespace GymManagementDAL.Data.DataSeed
 		{
 			try
 			{
-				dbContext.Database.Migrate();
 				bool HasCategories = dbContext.Categories.Any();
 				bool HasPlans = dbContext.Plans.Any();
 				if ( HasCategories && HasPlans) return false;
 
 				if (!HasCategories)
 				{
-					var Categories = LoadDataFromJsonFile<CategoryEntity>("Files/categories.json");
+					var Categories = LoadDataFromJsonFile<CategoryEntity>("categories.json");
 					dbContext.Categories.AddRange(Categories);
 				}
 
 				if (!HasPlans)
 				{
-					var Plans = LoadDataFromJsonFile<PlanEntity>("Files/plans.json");
+					var Plans = LoadDataFromJsonFile<PlanEntity>("plans.json");
 					dbContext.Plans.AddRange(Plans);
 				}
 
@@ -44,8 +43,10 @@ namespace GymManagementDAL.Data.DataSeed
 			}
 		}
 
-		private static List<T> LoadDataFromJsonFile<T>(string filePath)
+		private static List<T> LoadDataFromJsonFile<T>(string fileName)
 		{
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", fileName);
+
 			if (!File.Exists(filePath)) throw new FileNotFoundException();
 
 			string Data = File.ReadAllText(filePath);

@@ -81,12 +81,18 @@ namespace GymManagementDAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,2)");
@@ -110,8 +116,8 @@ namespace GymManagementDAL.Data.Migrations
                         .HasColumnName("JoinDate")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -132,6 +138,7 @@ namespace GymManagementDAL.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -258,8 +265,8 @@ namespace GymManagementDAL.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
