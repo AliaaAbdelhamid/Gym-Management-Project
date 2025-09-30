@@ -17,13 +17,14 @@ namespace GymManagementBLL.ViewModels.MemberViewModel
 
 		[Required(ErrorMessage = "Email Is Required")]
 		[EmailAddress(ErrorMessage = "Invalid email format")]
+		[DataType(DataType.EmailAddress)]
 
 		public string Email { get; set; } = null!;
 
 		[Required(ErrorMessage = "Phone Number Is Required")]
 		[Phone(ErrorMessage = "Invalid phone number")]
 		[RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone number must be a valid Egyptian mobile number")]
-
+		[DataType(DataType.PhoneNumber)]
 		public string Phone { get; set; } = null!;
 
 		[Required(ErrorMessage = "Date of Birth is required")]

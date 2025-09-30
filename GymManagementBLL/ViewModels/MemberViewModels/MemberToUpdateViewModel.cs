@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.MemberViewModel
 {
-	public class UpdateMemberViewModel
+	public class MemberToUpdateViewModel
 	{
+		[Required(ErrorMessage = "Name Is Required")]
+		[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name can only contain letters and spaces")]
+		public string Name { get; set; } = null!;
 
+		public string? Photo { get; set; }
 		[Required(ErrorMessage = "Email Is Required")]
 		[EmailAddress(ErrorMessage = "Invalid email format")]
 		public string Email { get; set; } = null!;
@@ -34,6 +38,8 @@ namespace GymManagementBLL.ViewModels.MemberViewModel
 		[StringLength(150, MinimumLength = 2, ErrorMessage = "Street must be between 2 and 150 characters")]
 		[RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Street can only contain letters, numbers, and spaces")]
 		public string Street { get; set; } = null!;
+
+
 
 	}
 }
