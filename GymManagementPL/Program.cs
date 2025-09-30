@@ -21,6 +21,8 @@ namespace GymManagementPL
 			builder.Services.AddDbContext<GymDbContext>();
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddScoped<IMemberService, MemberService>();
+			builder.Services.AddScoped<ITrainerService, TrainerService>();
+			builder.Services.AddScoped<IPlanService, PlanService>();
 			builder.Services.AddAutoMapper(M=>M.AddProfile(new MappingProfile()));
 			var app = builder.Build();
 
@@ -28,7 +30,7 @@ namespace GymManagementPL
 			using var Scoope = app.Services.CreateScope();
 			var DbContextObj = Scoope.ServiceProvider.GetRequiredService<GymDbContext>();
 			var PendingMigrations = DbContextObj.Database.GetPendingMigrations();
-			if (PendingMigrations.Count() > 0)
+			if (PendingMigrations.Any())
 				DbContextObj.Database.Migrate();
 			GymDataSeeding.SeedData(DbContextObj);
 			#endregion

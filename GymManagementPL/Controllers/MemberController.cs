@@ -13,74 +13,135 @@ namespace GymManagementPL.Controllers
         {
             _memberService = memberService;
         }
-        public IActionResult Index()
-        {
-            var model = new MemberIndexViewModel
-            {
-                Members = _memberService.GetAllMembers()
-            };
-            return View(model);
-        }
+		#region Get All Members
+		public IActionResult Index()
+		{
+			var Members = _memberService.GetAllMembers();
+			return View(Members);
+		}
+		#endregion
 
-        [HttpPost]
-        public IActionResult Create(CreateMemberViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.OpenCreateModal = true;
-                return View("Index", new MemberIndexViewModel
-                {
-                    Members = _memberService.GetAllMembers(),
-                    CreateMember = viewModel
-                });
-            }
+		#region Create Member 
 
-            var result = _memberService.CreateMember(viewModel);
-            if (result)
-            {
-                TempData["SuccessMessage"] = "Member created successfully!";
-                return RedirectToAction(nameof(Index));
-            }
+		public IActionResult Create()
+		{
+			return View();
+		}
 
-            // If saving failed
-            ModelState.AddModelError("savingfailed", "Something went wrong while saving.");
-            ViewBag.OpenCreateModal = true;
+		[HttpPost]
+		public IActionResult CreateMember(CreateMemberViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				ModelState.AddModelError("DataMissed", "Check Missing Fields");
+				return View(nameof(Create), model);
+			}
 
-            return View("Index", new MemberIndexViewModel
-            {
-                Members = _memberService.GetAllMembers(),
-                CreateMember = viewModel
-            });
-        }
+			bool Result =  _memberService.CreateMember(model);
+			if (Result)
+			{
+				TempData["SuccessMessage"] = "Member Updated Successfully.";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Member Failed To Create , Phone Number Or Email already exists";
+			}
+			return RedirectToAction(nameof(Index));
 
-        [HttpPost]
-        public IActionResult EditMemberData([FromRoute]int id ,UpdateMemberViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.OpenEditMemberDetailsModal = id; // reopen correct modal
-                return View("Index", new MemberIndexViewModel
-                {
-                    Members = _memberService.GetAllMembers(),
-                    UpdateMemberDetails = viewModel
-                });
+		}
+		#endregion
+		
+		#region Show Member Data 
 
-            }
-            var result = _memberService.UpdateMemberDetails(id , viewModel);
-            if (result)
-            {
-                TempData["SuccessMessage"] = "Member Updated successfully!";
-                return RedirectToAction(nameof(Index));
-            }
+		public IActionResult MemberDetails(int id)
+		{
+			var member = _memberService.GetMemberDetails(id);
 
-            ModelState.AddModelError("savingfailed", "Something went wrong while saving.");
-            ViewBag.OpenEditMemberDetailsModal = id; // reopen correct modal
+			if (member == null)
+			{
+				TempData["ErrorMessage"] = "Member not found.";
+				return RedirectToAction(nameof(Index));
+			}
 
-            return View("Index", new MemberIndexViewModel
-            {
-                Members = _memberService.GetAllMembers(),
-                UpdateMemberDetails = viewModel
-            });
-        }
-    }
+			return View(member);
+		}
+		public IActionResult HealthRecordDetails(int id)
+		{
+			var member = _memberService.GetMemberHealthRecord(id);
+
+			if (member == null)
+			{
+				TempData["ErrorMessage"] = "Member not found.";
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(member);
+		} 
+		#endregion
+
+		#region Member Data Edit 
+		public IActionResult MemberEdit(int id)
+		{
+			var member = _memberService.GetMemberToUpdate(id);
+
+			if (member == null)
+			{
+				TempData["ErrorMessage"] = "Member not found.";
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(member);
+		}
+
+		[HttpPost]
+		public IActionResult MemberEdit([FromRoute] int id, MemberToUpdateViewModel memberToUpdate)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(memberToUpdate);
+			}
+
+			var result = _memberService.UpdateMemberDetails(id, memberToUpdate);
+
+			if (result)
+			{
+				TempData["SuccessMessage"] = "Member Updated Successfully.";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Member Failed To Update .";
+			}
+			return RedirectToAction(nameof(Index));
+		}
+		#endregion
+
+		#region Delete Member 
+
+		public IActionResult Delete([FromRoute]int id)
+		{
+			var member =  _memberService.GetMemberDetails(id);
+
+			if (member == null)
+			{
+				TempData["ErrorMessage"] = "Member not found.";
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(member);
+		}
+
+		[HttpPost]
+		public IActionResult DeleteConfirmed([FromForm] int id)
+		{
+			var Result = _memberService.RemoveMember(id);
+
+			if (Result)
+				TempData["SuccessMessage"] = "Member deleted successfully!";
+			else
+				TempData["ErrorMessage"] = "Member not found.";
+			return RedirectToAction(nameof(Index));
+		}
+
+		#endregion
+	}
 }

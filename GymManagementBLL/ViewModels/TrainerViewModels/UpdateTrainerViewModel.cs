@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymManagementBLL.ViewModels.TrainerVireModels
+namespace GymManagementBLL.ViewModels.TrainerViewModels
 {
     public class UpdateTrainerViewModel
     {
 
-        [Required(ErrorMessage = "Email Is Required")]
+        public string Name { get; set; } = null!;
+		[Required(ErrorMessage = "Email Is Required")]
         [EmailAddress(ErrorMessage = "Invalid email format")]
         public string Email { get; set; } = null!;
 

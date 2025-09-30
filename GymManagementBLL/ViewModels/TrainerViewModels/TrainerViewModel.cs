@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymManagementBLL.ViewModels.TrainerVireModels
+namespace GymManagementBLL.ViewModels.TrainerViewModels
 {
     public class TrainerViewModel
     {

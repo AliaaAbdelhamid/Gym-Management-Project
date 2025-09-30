@@ -11,10 +11,6 @@ button {
     border: none;
 }
 
-.btn:hover {
-    background-color: var(--primary-color) !important;
-}
-
 ul {
     list-style-type: none;
 }
@@ -235,6 +231,94 @@ section.workout {
                 border-radius: 100px;
             }
 
+
+/* Button Base Styles */
+.btn-fill,
+.btn-outline {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    border-width: 2px;
+    border-style: solid;
+}
+
+/* Filled Button - Default State */
+.btn-fill {
+    background-color: #070093;
+    border-color: #070093;
+    color: #fff;
+}
+
+    /* Filled Button - Hover State (Switch to Outline) */
+    .btn-fill:hover {
+        background-color: transparent;
+        border-color: #070093;
+        color: #070093;
+    }
+
+/* Outline Button - Default State */
+.btn-outline {
+    background-color: transparent;
+    border-color: #070093;
+    color: #070093;
+}
+
+    /* Outline Button - Hover State (Switch to Fill) */
+    .btn-outline:hover {
+        background-color: #070093;
+        border-color: #070093;
+        color: #fff;
+    }
+
+    /* Focus States for Accessibility */
+    .btn-fill:focus,
+    .btn-outline:focus {
+        outline: 3px solid rgba(7, 0, 147, 0.3);
+        outline-offset: 2px;
+    }
+
+/* Active/Pressed States */
+.btn-fill:active {
+    background-color: #050070;
+    border-color: #050070;
+    transform: scale(0.98);
+}
+
+.btn-outline:active {
+    background-color: #050070;
+    border-color: #050070;
+    color: #fff;
+    transform: scale(0.98);
+}
+
+/* Disabled States */
+.btn-fill:disabled,
+.btn-outline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Optional: Button Sizes */
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.btn-lg {
+    padding: 16px 32px;
+    font-size: 18px;
+}
+
+/* Optional: Rounded Pill Style */
+.btn-pill {
+    border-radius: 50px;
+}
 /* ^ Why Us */
 section.why-us .feature .count {
     width: 110px;
@@ -397,53 +481,31 @@ footer .footer-content .location p {
     margin-top: 2vh; /* 10% of viewport height */
 }
 
-.modals .card-details ul {
+.card-details ul {
     margin-left: -20px;
 }
 
-    .modals .card-details ul li {
+.card-details ul li {
         cursor: pointer;
     }
 
-.modals .btn-fill,
-.modals .btn-outline {
-    padding: 10px 80px;
-    border-radius: 15px;
-    font-weight: 600;
+.icon-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(7, 0, 147, 0.1);
+    border-radius: 10px;
+}
+.plan-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.modals .btn-fill {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: #fff;
-}
-
-.modals .btn-outline {
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-}
-
-.modals #deleteModal .modal-content {
-    background-color: #fff;
-    width: 100%;
-    padding: 20px !important;
-    text-align: center;
-}
-
-    .modals #deleteModal .modal-content .buttons {
-        display: flex;
-        width: 100%;
-        justify-content: space-between !important;
+    .plan-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
     }
-
-        .modals #deleteModal .modal-content .buttons button {
-            padding: 5px 25px !important;
-        }
-
-/* ^ media query */
-
-/* ^ about section */
-
 @media screen and (max-width: 576px) {
     section.about .characters {
         transform: translateX(-40%);

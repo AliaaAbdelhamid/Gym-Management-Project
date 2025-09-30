@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using AutoMapper.Execution;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberViewModel;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
@@ -47,7 +48,7 @@ namespace GymManagementBLL.Services.Classes
 						Height = CreatedMember.HealthRecordViewModel.Height,
 						Weight = CreatedMember.HealthRecordViewModel.Weight
 					}
-                };
+				};
 				Repo.Add(MemberEntity);
 				return _unitOfWork.SaveChanges() > 0;
 			}
@@ -66,12 +67,13 @@ namespace GymManagementBLL.Services.Classes
 
 			var memberViewModels = Members.Select(m => new MemberViewModel
 			{
+				Id = m.Id,
 				Name = m.Name,
 				Email = m.Email,
 				Phone = m.Phone,
 				DateOfBirth = m.DateOfBirth.ToShortDateString(),
 				Gender = m.Gender.ToString(),
-				Address = $"{m.Address.BuildingNumber} - {m.Address.Street} -{m.Address.City}",
+				Address = FormatAddress(m.Address),
 				Photo = m.Photo
 			});
 			return memberViewModels;
@@ -79,20 +81,35 @@ namespace GymManagementBLL.Services.Classes
 
 		public MemberViewModel? GetMemberDetails(int MemberId)
 		{
-			var Member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
+			var member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
 
-			if (Member is null) return null;
+			if (member is null) return null;
 
-			return new MemberViewModel()
+			var viewModel = new MemberViewModel
 			{
-				Name = Member.Name,
-				Email = Member.Email,
-				Phone = Member.Phone,
-				Gender = Member.Gender.ToString(),
-				DateOfBirth = Member.DateOfBirth.ToShortDateString(),
-				Address = $"{Member.Address.BuildingNumber} - {Member.Address.Street} - {Member.Address.City}",
-				Photo = Member.Photo
+				Id = member.Id,
+				Name = member.Name,
+				Email = member.Email,
+				Phone = member.Phone,
+				Gender = member.Gender.ToString(),
+				DateOfBirth = member.DateOfBirth.ToShortDateString(),
+				Address = FormatAddress(member.Address),
+				Photo = member.Photo
 			};
+
+			var activeMemberShip = _unitOfWork.GetRepository<MembershipEntity>()
+				.GetAll(MP => MP.MemberId == MemberId && MP.Status == "Active").FirstOrDefault();
+
+			if (activeMemberShip is not null)
+			{
+				var activePlan = _unitOfWork.GetRepository<PlanEntity>().GetById(activeMemberShip.PlanId);
+
+				viewModel.PlanName = activePlan?.Name;
+				viewModel.MembershipStartDate = activeMemberShip.CreatedAt.ToShortDateString();
+				viewModel.MembershipEndDate = activeMemberShip.EndDate.ToShortDateString();
+			}
+
+		return viewModel;
 		}
 
 		public HealthRecordViewModel? GetMemberHealthRecord(int MemberId)
@@ -107,6 +124,23 @@ namespace GymManagementBLL.Services.Classes
 				Weight = MemberHealthRecord.Weight,
 				Note = MemberHealthRecord.Note
 			};
+		}
+
+		public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
+		{
+			var Member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
+			if(Member is null) return null;
+			return new MemberToUpdateViewModel()
+			{
+				Email = Member.Email,
+				Phone = Member.Phone,
+				BuildingNumber = Member.Address.BuildingNumber,
+				City = Member.Address.City,
+				Street= Member.Address.Street,
+				Name= Member.Name,
+				Photo=Member.Photo,
+			};
+
 		}
 
 		public bool RemoveMember(int MemberId)
@@ -127,11 +161,11 @@ namespace GymManagementBLL.Services.Classes
 
 		}
 
-		public bool UpdateMemberDetails( int Id ,  UpdateMemberViewModel UpdatedMember)
+		public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
 		{
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
 			var Member = Repo.GetById(Id);
-			if(Member is null) return false;
+			if (Member is null) return false;
 			Member.Email = UpdatedMember.Email;
 			Member.Phone = UpdatedMember.Phone;
 			Member.Address.BuildingNumber = UpdatedMember.BuildingNumber;
@@ -158,5 +192,14 @@ namespace GymManagementBLL.Services.Classes
 			return _unitOfWork.SaveChanges() > 0;
 
 		}
+		#region Helper Methods
+
+		private string FormatAddress(Address address)
+		{
+			if (address == null) return "N/A";
+			return $"{address.BuildingNumber} - {address.Street} - {address.City}";
+		}
+
+		#endregion
 	}
 }

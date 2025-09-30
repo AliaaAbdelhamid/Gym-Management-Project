@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities.Enums
 {
-	[Flags]
-	public enum Specialties : byte
+	public enum Specialties
 	{
+		None = 0,
 		GeneralFitness = 1,
-		Yoga = 2,
-		Boxing = 4,
-		CrossFit = 8
+		Yoga ,
+		Boxing ,
+		CrossFit 
 	}
 }
