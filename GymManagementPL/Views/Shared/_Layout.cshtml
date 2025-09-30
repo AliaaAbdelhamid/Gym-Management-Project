@@ -11,25 +11,52 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GymManagementPL</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <!-- ^ navbar -->
+        <nav class="navbar navbar-expand-lg bg-white my-3">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/logo.jpg" alt="" />
+                </a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active px-3 py-2 mx-2 fw-bolder fs-5"
+                               aria-current="page"
+                               asp-action="Index" asp-controller="Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative"
+                               asp-action="About" asp-controller="Home">About</a>
+
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative"
+                               asp-action="Index" asp-controller="Session">Session</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative"
+                               asp-action="Index" asp-controller="Trainer">Trainers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative"
+                               asp-action="Index" asp-controller="Member">Members</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -37,9 +64,71 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GymManagementPL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="mt-5">
+        <div class="bar bg-primary-color d-flex py-4 text-white fw-bolder align-items-center">
+            <p class="py-0 my-0 overflow-hidden text-nowrap">
+                outdoor & online trainers
+                <img src="../images/star.svg" alt="star icon" /> personal training
+                <img src="../images/star.svg" alt="star icon" /> live classes
+                <img src="../images/star.svg" alt="star icon" /> personal trainers
+                <img src="../images/star.svg" alt="star icon" /> personal training
+            </p>
+        </div>
+
+        <div class="footer-content my-5">
+            <div class="container">
+                <div class="row row-cols-2 row-cols-md-4 g-5">
+                    <div class="logo">
+                        <div class="inner">
+                            <div class="image">
+                                <img src="../images/logo.jpg" alt="our logo" />
+                            </div>
+                            <p class="fs-18 mt-2">
+                                Push harder, go further. Your <br />
+                                fitness journey starts today!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact">
+                        <h4 class="fw-bolder text-uppercase mb-4">contact us</h4>
+
+                        <ul>
+                            <li class="d-flex align-items-center gap-2">
+                                <div class="icon">
+                                    <img src="../images/phone icon.jpg" alt="phone icon" />
+                                </div>
+                                <p>+91 123 456 789</p>
+                            </li>
+
+                            <li class="d-flex align-items-center gap-2">
+                                <div class="icon">
+                                    <img src="../images/message icon.jpg" alt="message icon" />
+                                </div>
+                                <p>info@gmail.com</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="time">
+                        <h4 class="fw-bolder text-uppercase mb-4">our gym timing</h4>
+
+                        <p>
+                            Mon - Fri : 08:00 AM - 10:00 PM <br />Sat - Sun : 08:00 AM -
+                            09:00 PM
+                        </p>
+                    </div>
+
+                    <div class="location">
+                        <h4 class="fw-bolder text-uppercase mb-4">our location</h4>
+
+                        <p>
+                            2715 Ash Dr. San Jose, South <br />
+                            Dakota 83475
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

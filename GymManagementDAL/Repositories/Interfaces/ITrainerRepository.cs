@@ -9,8 +9,8 @@ namespace GymManagementDAL.Repositories.Interfaces
 {
 	internal interface ITrainerRepository
 	{
-		TrainerEntity? GetByIdAsync(int id);
-		IEnumerable<TrainerEntity> GetAllAsync();
+		TrainerEntity? GetById(int id);
+		IEnumerable<TrainerEntity> GetAll();
 		int Add(TrainerEntity trainer);
 		int Update(TrainerEntity trainer);
 		int Delete(TrainerEntity trainer);

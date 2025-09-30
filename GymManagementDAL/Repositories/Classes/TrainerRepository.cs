@@ -30,11 +30,11 @@ namespace GymManagementDAL.Repositories.Classes
 			return _dbContext.SaveChanges();
 		}
 
-		public IEnumerable<TrainerEntity> GetAllAsync()
+		public IEnumerable<TrainerEntity> GetAll()
 		=> _dbContext.Trainers.AsNoTracking().ToList();
 
 
-		public TrainerEntity? GetByIdAsync(int id)
+		public TrainerEntity? GetById(int id)
 		=> _dbContext.Trainers.Find(id);
 
 

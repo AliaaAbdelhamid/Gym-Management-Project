@@ -1,0 +1,49 @@
+﻿@model UpdateMemberViewModel
+
+
+<header class="mb-4">
+    <h3 class="text-primary-color">Edit Member Data</h3>
+</header>
+@Html.ValidationMessage("SavingFailed", new { @class = "text-danger" })
+
+<form method="post" asp-action="EditMemberData" enctype="multipart/form-data">
+
+    <div class="row g-3">
+        <div class="col-12 col-md-6">
+            <h5>Add Photo</h5>
+            <input type="file" class="form-control" />
+        </div>
+
+        <div class="col-12 col-md-6">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <label asp-for="Phone" class="form-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <label asp-for="BuildingNumber" class="form-label"></label>
+            <input asp-for="BuildingNumber" class="form-control" />
+            <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <label asp-for="Street" class="form-label"></label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="col-12 col-md-6">
+            <label asp-for="City" class="form-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+    <footer class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-fill">Done</button>
+    </footer>
+</form>

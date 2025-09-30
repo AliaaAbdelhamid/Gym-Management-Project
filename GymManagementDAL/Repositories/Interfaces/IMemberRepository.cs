@@ -9,8 +9,8 @@ namespace GymManagementDAL.Repositories.Interfaces
 {
 	internal interface IMemberRepository
 	{
-		MemberEntity? GetByIdAsync(int id);
-		IEnumerable<MemberEntity> GetAllAsync();
+		MemberEntity? GetById(int id);
+		IEnumerable<MemberEntity> GetAll();
 		int Add(MemberEntity member);
 		int Update(MemberEntity member);
 		int Delete(int id);

@@ -1,0 +1,468 @@
+﻿/* ^ global style */
+
+:root {
+    --primary-color: #070093;
+    --main-duration: 300ms;
+    --black-alternative: #242424;
+}
+
+button {
+    outline: none;
+    border: none;
+}
+
+.btn:hover {
+    background-color: var(--primary-color) !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.bar {
+    font-size: 35px;
+    letter-spacing: 1px;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-black-alternative {
+    color: var(--black-alternative);
+}
+
+.bg-primary-color {
+    background-color: var(--primary-color);
+}
+
+.text-primary-color {
+    color: var(--primary-color);
+}
+
+.border-primary-color {
+    border-color: var(--primary-color);
+}
+
+.mt-6 {
+    margin-top: 4rem;
+}
+
+.mb-6 {
+    margin-bottom: 4rem;
+}
+
+.fs-18 {
+    font-size: 18px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar {
+    font-family: 'Baloo Thambi 2', system-ui;
+}
+
+p,
+pre {
+    font-family: 'Rubik', sans-serif;
+}
+
+/* ^ Start Navbar */
+.navbar .navbar-nav a {
+    border-radius: 19px;
+    transition: color var(--main-duration), background-color var(--main-duration);
+}
+
+    .navbar .navbar-nav a.active {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+/* ^ Start Header */
+header.home-section header p {
+    position: relative;
+    padding-left: 22px;
+    font-size: 18px;
+}
+
+    header.home-section header p::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        background-color: var(--primary-color);
+        width: 4px;
+        border-radius: 10px;
+    }
+
+@media screen and (max-width: 500px) {
+    header.home-section header p {
+        padding: 0;
+    }
+
+        header.home-section header p::before {
+            display: none !important;
+        }
+}
+
+header.home-section .buttons button.explore-more:hover {
+    color: #fff;
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+}
+
+header.home-section .buttons button.get-started:hover {
+    background-color: #fff !important;
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color);
+}
+
+/* ^ about section */
+section.about {
+    overflow: hidden !important;
+}
+
+    section.about .row {
+        overflow: hidden !important;
+    }
+
+    section.about .characters .image:nth-child(2) {
+        top: 50%;
+        left: 38%;
+    }
+
+    section.about .characters .image:nth-child(3) {
+        top: 0;
+        left: 60%;
+        top: 70px;
+    }
+
+    section.about header p.text,
+    section.why-us header p.text {
+        font-size: 18px;
+    }
+
+    section.about .features {
+        margin-top: 80px;
+    }
+
+        section.about .features .feature .title img {
+            margin-top: -7px;
+            width: 50px;
+        }
+
+        section.about .features .feature .info {
+            margin-left: 11px;
+        }
+
+            section.about .features .feature .info p:nth-child(1) {
+                margin-block: 5px;
+            }
+
+        section.about .features button:hover {
+            background-color: var(--primary-color);
+        }
+
+/* ^ workout section */
+
+section.workout {
+    margin-top: 200px !important;
+    background-image: linear-gradient(var(--primary-color) 65%, #fff 65%);
+    padding-bottom: 80px;
+}
+
+    section.workout .title {
+        width: 50%;
+        text-align: center;
+        transform: translateY(-20%);
+        margin-inline: auto;
+    }
+
+        section.workout .title h2 {
+            font-size: 60px;
+            font-weight: 700;
+            background-image: linear-gradient(#070093 45%, #ffffff);
+            color: transparent;
+            background-clip: text;
+        }
+
+    section.workout .card {
+        padding: 0 !important;
+        border-radius: 18px !important;
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.082);
+        overflow: hidden;
+    }
+
+        section.workout .card img {
+            height: 300px;
+            object-fit: contain;
+        }
+
+        section.workout .card a {
+            text-decoration: none !important;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+    section.workout .indicators {
+        margin-inline: auto;
+        margin-top: 30px;
+        height: 5px;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+        section.workout .indicators .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--black-alternative);
+            cursor: pointer;
+        }
+
+            section.workout .indicators .indicator.active {
+                width: 30px;
+                background-color: var(--primary-color);
+                border-radius: 100px;
+            }
+
+/* ^ Why Us */
+section.why-us .feature .count {
+    width: 110px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 500;
+}
+
+section.why-us .feature p {
+    line-height: 1.8;
+}
+
+/* ^ footer */
+footer .footer-content .logo p {
+    line-height: 1.7;
+}
+
+footer .footer-content .contact ul {
+    margin-left: -35px;
+}
+
+footer .footer-content .contact li p {
+    margin-top: 12px;
+}
+
+footer .footer-content .time p,
+footer .footer-content .location p {
+    line-height: 2.2;
+}
+
+/* ^ About page */
+
+:root {
+    --border-table-color: #e9ecff;
+}
+
+.about-page {
+    margin-bottom: 160px !important;
+}
+
+/* ^ Session, Trainers, Trainees Pages */
+.page {
+    min-height: 70vh;
+}
+
+    .page .search {
+        padding: 12px 20px;
+        border: 1px rgba(128, 128, 128, 0.144) solid;
+        border-radius: 10px;
+    }
+
+        .page .search input {
+            border: none !important;
+            outline: none !important;
+        }
+
+    .page table {
+        border: 1px solid var(--border-table-color);
+        border-radius: 10px;
+        border-collapse: separate;
+        padding: 40px 20px;
+    }
+
+        .page table thead th {
+            padding-bottom: 15px;
+        }
+
+        .page table td {
+            vertical-align: middle;
+            padding-bottom: 20px !important;
+        }
+
+    .page.session-page table td {
+        padding-bottom: 10px !important;
+    }
+
+    .page table td .avatar img {
+        display: block;
+        margin-left: 12px;
+    }
+
+    .page table th:not(:last-of-type),
+    .page table td:not(:last-of-type) {
+        border-right: 1px solid var(--border-table-color);
+    }
+
+    .page table th:not(:first-of-type),
+    .page table td:not(:first-of-type) {
+        padding-left: 40px;
+    }
+
+    .page table th span {
+        position: relative;
+        display: block;
+        width: fit-content;
+    }
+
+        .page table th span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 1px;
+            width: 150%;
+            background-color: var(--border-table-color);
+        }
+
+    .page table td img[alt='action icon'] {
+        cursor: pointer;
+    }
+
+    .page table td.action input {
+        visibility: hidden;
+    }
+    .page table td.action {
+        position: relative; /* anchor for absolute children */
+    }
+        .page table td.action ul.action-menu {
+            position: absolute;
+            top: 100%; /* directly below the dots */
+            left: 0; /* align with left edge */
+            margin-top: 6px; /* little spacing */
+            width: max-content;
+            min-width: 160px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            z-index: 99;
+            display: none;
+        }
+
+        .page table td.action ul.action-menu li {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page table td.action ul.action-menu button {
+            padding: 0 !important;
+        }
+        .page table td.action ul.action-menu li:hover {
+            background-color: #f5f5f5;
+        }
+    .page table td.action:has(input:checked) input + ul.action-menu {
+        display: block;
+    }
+
+/* ^ Modals */
+
+.modal-content {
+    margin-top: 2vh; /* 10% of viewport height */
+}
+
+.modals .card-details ul {
+    margin-left: -20px;
+}
+
+    .modals .card-details ul li {
+        cursor: pointer;
+    }
+
+.modals .btn-fill,
+.modals .btn-outline {
+    padding: 10px 80px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.modals .btn-fill {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.modals .btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+}
+
+.modals #deleteModal .modal-content {
+    background-color: #fff;
+    width: 100%;
+    padding: 20px !important;
+    text-align: center;
+}
+
+    .modals #deleteModal .modal-content .buttons {
+        display: flex;
+        width: 100%;
+        justify-content: space-between !important;
+    }
+
+        .modals #deleteModal .modal-content .buttons button {
+            padding: 5px 25px !important;
+        }
+
+/* ^ media query */
+
+/* ^ about section */
+
+@media screen and (max-width: 576px) {
+    section.about .characters {
+        transform: translateX(-40%);
+    }
+
+    section.about .features {
+        text-align: center;
+    }
+
+        section.about .features .title {
+            justify-content: center;
+            margin-left: -15px;
+        }
+
+    section.workout .title h2 {
+        font-size: 40px;
+    }
+
+    section.workout .title p {
+        font-size: 18px !important;
+    }
+}
