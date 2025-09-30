@@ -6,16 +6,20 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div id="Alert" class="alert alert-success">
+    <div id="Alert" class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle-fill me-2"></i>
         @TempData["SuccessMessage"]
-    </div>
-}else if(TempData["ErrorMessage"] != null)
-{
-    <div id="Alert" class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
-
+else if (TempData["ErrorMessage"] != null)
+{
+    <div id="Alert" class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
 <div class="container">
     <header class="d-flex justify-content-between mt-5 mb-4 align-items-center">
         <div class="search d-flex gap-2">

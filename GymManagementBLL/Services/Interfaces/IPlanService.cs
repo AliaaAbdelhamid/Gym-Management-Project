@@ -11,7 +11,9 @@ namespace GymManagementBLL.Services.Interfaces
 	public interface IPlanService
 	{
 		bool UpdatePlan(int Id, UpdatePlanViewModel updatePlanViewModel);
-		bool RemovePlan(int PlanId);
+		bool Activate(int PlanId);
 		IEnumerable<PlanViewModel> GetAllPlans();
+		PlanViewModel? GetPlanById(int planId);
+		UpdatePlanViewModel? GetPlanToUpdate(int planId);
 	}
 }
