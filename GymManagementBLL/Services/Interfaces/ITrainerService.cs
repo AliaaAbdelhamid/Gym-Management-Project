@@ -1,4 +1,4 @@
-﻿using GymManagementBLL.ViewModels.TrainerVireModels;
+﻿using GymManagementBLL.ViewModels.TrainerViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,10 @@ namespace GymManagementBLL.Services.Interfaces
         bool RemoveTrainer(int trainerId);
 
         TrainerViewModel? GetTrainerDetails(int trainerId);
+        TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId);
 
-        IEnumerable<TrainerViewModel> GetAllTrainers();
+
+		IEnumerable<TrainerViewModel> GetAllTrainers();
 
 
     }

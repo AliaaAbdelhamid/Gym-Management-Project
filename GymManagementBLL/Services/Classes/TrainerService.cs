@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GymManagementBLL.Services.Interfaces;
-using GymManagementBLL.ViewModels.TrainerVireModels;
+using GymManagementBLL.ViewModels.TrainerViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class TrainerService : ITrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -61,12 +61,19 @@ namespace GymManagementBLL.Services.Classes
 
             var mappedTrainer = _mapper.Map<TrainerEntity, TrainerViewModel>(Trainer);
             return mappedTrainer;
-
-
-
         }
+		public TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId)
+		{
+			var Trainer = _unitOfWork.GetRepository<TrainerEntity>().GetById(trainerId);
+			if (Trainer is null) return null;
 
-        public bool RemoveTrainer(int trainerId)
+			var mappedTrainer = _mapper.Map<TrainerEntity, TrainerToUpdateViewModel>(Trainer);
+			return mappedTrainer;
+
+
+
+		}
+		public bool RemoveTrainer(int trainerId)
         {
             var Repo = _unitOfWork.GetRepository<TrainerEntity>();
             var TrainerToRemove = Repo.GetById(trainerId);
@@ -84,6 +91,7 @@ namespace GymManagementBLL.Services.Classes
             if(TrainerToUpdate is null) return false;
 
             _mapper.Map(updatedTrainer, TrainerToUpdate);
+            TrainerToUpdate.UpdatedAt = DateTime.Now;
 
             return _unitOfWork.SaveChanges() > 0;
         }

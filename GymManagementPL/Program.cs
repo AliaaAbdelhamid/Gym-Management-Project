@@ -21,6 +21,7 @@ namespace GymManagementPL
 			builder.Services.AddDbContext<GymDbContext>();
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddScoped<IMemberService, MemberService>();
+			builder.Services.AddScoped<ITrainerService, TrainerService>();
 			builder.Services.AddScoped<IPlanService, PlanService>();
 			builder.Services.AddAutoMapper(M=>M.AddProfile(new MappingProfile()));
 			var app = builder.Build();

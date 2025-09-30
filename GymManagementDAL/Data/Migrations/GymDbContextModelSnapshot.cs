@@ -278,8 +278,8 @@ namespace GymManagementDAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(11)");
 
-                    b.Property<byte>("Specialties")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Specialties")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");

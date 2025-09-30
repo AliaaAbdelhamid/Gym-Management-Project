@@ -76,6 +76,8 @@ namespace GymManagementBLL.Services.Classes
 				var Repo = _unitOfWork.GetRepository<PlanEntity>();
 				var Plan = Repo.GetById(PlanId);
 				if (Plan is null) return false;
+				var HasMembers = _unitOfWork.GetRepository<MembershipEntity>().GetAll(X => X.PlanId == Plan.Id).Count() > 0;
+				if (HasMembers) return false;
 				Plan.IsActive = Plan.IsActive == true ? false : true;
 				Plan.UpdatedAt = DateTime.Now;
 				Repo.Update(Plan);

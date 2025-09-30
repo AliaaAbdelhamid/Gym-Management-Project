@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagementDAL.Data.Migrations
 {
     [DbContext(typeof(GymDbContext))]
-    [Migration("20250927163021_InitialCreate")]
+    [Migration("20250930182117_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -281,8 +281,8 @@ namespace GymManagementDAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(11)");
 
-                    b.Property<byte>("Specialties")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Specialties")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
