@@ -81,18 +81,11 @@ namespace GymManagementDAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,2)");
@@ -138,7 +131,6 @@ namespace GymManagementDAL.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -263,25 +255,28 @@ namespace GymManagementDAL.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("HireDate")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(11)");
 
                     b.Property<byte>("Specialties")
                         .HasColumnType("tinyint");
@@ -401,15 +396,18 @@ namespace GymManagementDAL.Data.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<int>("BuildingNumber")
-                                .HasColumnType("int");
+                                .HasColumnType("int")
+                                .HasColumnName("BuildingNumber");
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("varchar(30)")
+                                .HasColumnName("City");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("varchar(30)")
+                                .HasColumnName("Street");
 
                             b1.HasKey("TrainerEntityId");
 

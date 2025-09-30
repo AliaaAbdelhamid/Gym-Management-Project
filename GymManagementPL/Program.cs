@@ -1,3 +1,6 @@
+using GymManagementBLL;
+using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Data.DataSeed;
 using GymManagementDAL.Repositories.Classes;
@@ -17,6 +20,8 @@ namespace GymManagementPL
 
 			builder.Services.AddDbContext<GymDbContext>();
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+			builder.Services.AddScoped<IMemberService, MemberService>();
+			builder.Services.AddAutoMapper(M=>M.AddProfile(new MappingProfile()));
 			var app = builder.Build();
 
 			#region Migrate Database -  Data Seeding

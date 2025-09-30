@@ -13,10 +13,6 @@ namespace GymManagementDAL.Data.Configurations
 	{
 		public void Configure(EntityTypeBuilder<T> builder)
 		{
-			builder.Property(X => X.CreatedAt)
-				   .HasColumnName("JoinDate")
-				   .HasDefaultValueSql("GETDATE()");
-
 			builder.Property(X => X.Name)
 					.HasColumnType("varchar(50)");
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-	internal class MemberService : IMemberService
+	public class MemberService : IMemberService
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
@@ -39,8 +39,15 @@ namespace GymManagementBLL.Services.Classes
 						BuildingNumber = CreatedMember.BuildingNumber,
 						City = CreatedMember.City,
 						Street = CreatedMember.Street
+					},
+					HealthRecord = new HealthRecordEntity()
+					{
+						Note = CreatedMember.HealthRecordViewModel.Note,
+						BloodType = CreatedMember.HealthRecordViewModel.BloodType,
+						Height = CreatedMember.HealthRecordViewModel.Height,
+						Weight = CreatedMember.HealthRecordViewModel.Weight
 					}
-				};
+                };
 				Repo.Add(MemberEntity);
 				return _unitOfWork.SaveChanges() > 0;
 			}
@@ -65,6 +72,7 @@ namespace GymManagementBLL.Services.Classes
 				DateOfBirth = m.DateOfBirth.ToShortDateString(),
 				Gender = m.Gender.ToString(),
 				Address = $"{m.Address.BuildingNumber} - {m.Address.Street} -{m.Address.City}",
+				Photo = m.Photo
 			});
 			return memberViewModels;
 		}
@@ -82,7 +90,8 @@ namespace GymManagementBLL.Services.Classes
 				Phone = Member.Phone,
 				Gender = Member.Gender.ToString(),
 				DateOfBirth = Member.DateOfBirth.ToShortDateString(),
-				Address = $"{Member.Address.BuildingNumber} - {Member.Address.Street} - {Member.Address.City}"
+				Address = $"{Member.Address.BuildingNumber} - {Member.Address.Street} - {Member.Address.City}",
+				Photo = Member.Photo
 			};
 		}
 

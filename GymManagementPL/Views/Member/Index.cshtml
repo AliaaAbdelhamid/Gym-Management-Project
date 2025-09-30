@@ -1,0 +1,272 @@
+﻿@model MemberIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successAlert" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../images/icon.svg" type="image/x-icon" />
+    <!-- ^ Google Fonts => Baloo Thambi 2 & Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet" />
+    <!-- ^ Bootstrap 5.3.8 css file -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <!-- ^ Our main css file -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Power fitness | Trainees</title>
+</head>
+<body>
+    <main class="page">
+        <div class="container">
+
+            <header class="d-flex justify-content-between mt-5 mb-4 align-items-center">
+                <div class="search d-flex gap-2">
+                    <input type="text" placeholder="Search Here..." />
+                    <img src="../images/search icon.jpg" alt="search icon" />
+                </div>
+
+                <button data-bs-toggle="modal"
+                        data-bs-target="#addModal"
+                        class="btn bg-primary-color text-white fw-medium rounded-pill px-3 py-3">
+                    + Add Member
+                </button>
+                <div class="modal fade mt-6" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content p-5">
+
+                            @Html.Partial("PartialViews/_CreateMemberPartial", Model.CreateMember)
+                        </div>
+                    </div>
+                </div>
+            </header>
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th><span>@nameof(MemberViewModel.Photo)</span></th>
+                            <th><span>@nameof(MemberViewModel.Name)</span></th>
+                            <th><span>@nameof(MemberViewModel.Email)</span></th>
+                            <th><span>@nameof(MemberViewModel.Gender)</span></th>
+                            <th><span>@nameof(MemberViewModel.Phone)</span></th>
+                            <th><span> Action</span></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var member in Model.Members)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="avatar">
+                                        <img src="~/images/@member.Photo" alt="Member Image" />
+                                    </span>
+                                </td>
+                                <td><span>@member.Name</span></td>
+                                <td><span>@member.Email</span></td>
+                                <td><span>@member.Gender</span></td>
+                                <td><span>@member.Phone</span></td>
+
+                                <td class="action position-relative">
+                                    <label for="menu-2">
+                                        <img src="../images/action dots.jpg" alt="action icon" />
+                                    </label>
+                                    <input type="checkbox" id="menu-2" />
+                                    <ul class="action-menu">
+                                        <li data-bs-toggle="modal"
+                                            data-bs-target="#detailsModal-@member.Id"
+                                            class="d-flex align-content-center gap-3 mb-4">
+                                            <img src="../images/info 1.jpg" alt="info icon" />
+                                            <span>View Details</span>
+                                        </li>
+                                        <li data-bs-toggle="modal"
+                                            data-bs-target="#editModalMemberDetails-@member.Id"
+                                            class="d-flex align-content-center gap-3 mb-4">
+                                            <img src="../images/edit.jpg" alt="edit icon" />
+                                            <span>Edit Details</span>
+                                        </li>
+                                        <li data-bs-toggle="modal"
+                                            data-bs-target="#editModalMemberHealthRecord-@member.Id"
+                                            class="d-flex align-content-center gap-3 mb-4">
+                                            <img src="../images/edit.jpg" alt="edit icon" />
+                                            <span>Edit Health Data</span>
+                                        </li>
+                                        <li data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-@member.Id"
+                                            class="d-flex align-content-center gap-3">
+                                            <img src="../images/x-circle 1.jpg" alt="info icon" />
+                                            <button class="bg-white">Delete</button>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+
+                            // Modals
+                            <div class="modals">
+                            <div class="modal fade" id="detailsModal" tabindex="-1">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="card card-details border-0 p-2">
+                                            <img src="../images/card-header.jpg"
+                                                 class="card-img-top"
+                                                 alt="person" />
+                                            <div class="card-body">
+                                                <h4 class="mb-0 text-primary-color">Mahmoud El-Naggar</h4>
+                                                <span class="mb-2 pb-1 border-bottom d-block">Yoga Trainer (والله ما حصل)</span>
+                                                <p class="card-text">
+                                                    Some quick example text to build on the card title and make up
+                                                    the bulk of the card’s content.
+                                                </p>
+                                            </div>
+
+                                            <footer>
+                                                <ul class="d-flex justify-content-between align-items-center">
+                                                    <li>
+                                                        <img src="../images/line-md_phone-filled.jpg"
+                                                             alt="phone icon" />
+                                                    </li>
+
+                                                    <li>
+                                                        <img src="../images/mdi_whatsapp.jpg" alt="whatsapp icon" />
+                                                    </li>
+
+                                                    <li>
+                                                        <img src="../images/facebook-f.jpg" alt="facebook icon" />
+                                                    </li>
+
+                                                    <li>
+                                                        <img src="../images/twitter.jpg" alt="twitter icon" />
+                                                    </li>
+                                                </ul>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade mt-6" id="editModalMemberDetails-@member.Id" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content p-5">
+                                        @Html.Partial("PartialViews/_EditMemberDetails", Model.UpdateMemberDetails)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade mt-6" id="editModalMemberHealthRecord" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content p-5">
+                                        <header class="mb-4">
+                                            <h3 class="text-primary-color">Edit Member Health Record</h3>
+                                        </header>
+
+                                        <form>
+                                            <div class="d-flex justify-content-between gap-4 p-3">
+                                                <div class="date flex-grow-1">
+                                                    <h5>Add Photo</h5>
+                                                    <input type="file" class="form-control" />
+                                                </div>
+
+                                                <div class="session-name flex-grow-1">
+                                                    <h5>Name</h5>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                                <div class="email flex-grow-1">
+                                                    <h5>Email</h5>
+                                                    <input type="email" class="form-control" />
+                                                </div>
+
+                                                <div class="trainer-name flex-grow-1">
+                                                    <h5>Phone</h5>
+                                                    <input type="tel" class="form-control" />
+                                                </div>
+
+                                                <div class="trainer-name flex-grow-1">
+                                                    <h5>Session</h5>
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <footer class="d-flex justify-content-between mt-4">
+                                            <button class="btn-outline">Back</button>
+
+                                            <button class="btn-fill">Add</button>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="deleteModal" tabindex="-1">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <p class="fs-3 text-primary-color">Are you sure to Delete this?</p>
+
+                                        <div class="buttons">
+                                            <button class="btn-outline">NO</button>
+                                            <button class="btn-fill">Yes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- ^ Bootstrap 5.3.8 js file -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var shouldOpen = '@(ViewBag.OpenCreateModal ?? false)'.toLowerCase() === 'true';
+            if (shouldOpen) {
+                var modal = new bootstrap.Modal(document.getElementById('addModal'));
+                modal.show();
+            }
+        });
+            document.addEventListener("DOMContentLoaded", function () {
+            const alertBox = document.getElementById("successAlert");
+            if (alertBox) {
+                setTimeout(() => {
+                    // Fade out smoothly
+                    alertBox.style.transition = "opacity 0.5s ease";
+                    alertBox.style.opacity = "0";
+
+                    // Remove it from DOM after fade
+                    setTimeout(() => alertBox.remove(), 500);
+                }, 1500); // 1.5 seconds
+            }
+        });
+               document.addEventListener("DOMContentLoaded", function () {
+            var openEditModalId = '@ViewBag.OpenEditMemberDetailsModal';
+            if (openEditModalId && openEditModalId !== "") {
+                var modalElement = document.getElementById('editModalMemberDetails-' + openEditModalId);
+                if (modalElement) {
+                    var modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                }
+            }
+        });
+        });
+    </script>
+</body>
+</html>
