@@ -18,12 +18,16 @@ namespace GymManagementPL
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
-			builder.Services.AddDbContext<GymDbContext>();
+			builder.Services.AddDbContext<GymDbContext>(options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+			});
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddScoped<IMemberService, MemberService>();
 			builder.Services.AddScoped<ITrainerService, TrainerService>();
 			builder.Services.AddScoped<IPlanService, PlanService>();
-			builder.Services.AddAutoMapper(M=>M.AddProfile(new MappingProfile()));
+			builder.Services.AddScoped<ISessionService, SessionService>();
+			builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfile()));
 			var app = builder.Build();
 
 			#region Migrate Database -  Data Seeding

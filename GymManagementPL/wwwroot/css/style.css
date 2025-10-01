@@ -506,6 +506,34 @@ footer .footer-content .location p {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
     }
+.session-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .session-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+
+.info-item {
+    font-size: 0.9rem;
+}
+
+.bg-primary {
+    background-color: #070093 !important;
+}
+.icon-box {
+    min-width: 50px;
+}
+
+.detail-box {
+    transition: all 0.3s ease;
+}
+
+    .detail-box:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
 @media screen and (max-width: 576px) {
     section.about .characters {
         transform: translateX(-40%);

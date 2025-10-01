@@ -1,31 +1,28 @@
 ﻿using AutoMapper;
+using GymManagementBLL.ViewModels.SessionViewModels;
 using GymManagementBLL.ViewModels.TrainerViewModels;
 using GymManagementDAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementBLL
 {
-    public class MappingProfile:Profile
-    {
+	public class MappingProfile : Profile
+	{
 
-        public MappingProfile()
-        {
-            MapTrainer();          
-        }
-
-        private void MapTrainer()
-        {
-			CreateMap<CreateTrainerViewModel, TrainerEntity>()
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+		public MappingProfile()
 		{
-			BuildingNumber = src.BuildingNumber,
-			Street = src.Street,
-			City = src.City
-		}));
+			MapTrainer();
+			MapSession();
+		}
+
+		private void MapTrainer()
+		{
+			CreateMap<CreateTrainerViewModel, TrainerEntity>()
+				.ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+				{
+					BuildingNumber = src.BuildingNumber,
+					Street = src.Street,
+					City = src.City
+				}));
 			CreateMap<TrainerEntity, TrainerViewModel>();
 			CreateMap<TrainerEntity, TrainerToUpdateViewModel>()
 				.ForMember(dist => dist.Street, opt => opt.MapFrom(src => src.Address.Street))
@@ -39,6 +36,16 @@ namespace GymManagementBLL
 				City = src.City
 			}));
 		}
+		private void MapSession()
+		{
+			CreateMap<CreateSessionViewModel, SessionEntity>();
+			CreateMap<UpdateSessionViewModel, SessionEntity>();
+			CreateMap<SessionEntity, SessionViewModel>();
+			CreateMap<SessionEntity, UpdateSessionViewModel>();
+			CreateMap<TrainerEntity, TrainerSelectViewModel>();
+			CreateMap<CategoryEntity, CategorySelectViewModel>()
+				.ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.CategoryName));
+		}
 
-    }
+	}
 }
