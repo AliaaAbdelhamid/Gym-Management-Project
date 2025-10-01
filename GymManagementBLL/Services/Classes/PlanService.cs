@@ -17,6 +17,7 @@ namespace GymManagementBLL.Services.Classes
 		public IEnumerable<PlanViewModel> GetAllPlans()
 		{
 			var Plans = _unitOfWork.GetRepository<PlanEntity>().GetAll();
+			if (Plans is null || !Plans.Any()) return [];
 
 			return Plans.Select(P => new PlanViewModel()
 			{
