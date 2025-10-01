@@ -2,7 +2,7 @@
 
 namespace GymManagementBLL.Services.Interfaces
 {
-	internal interface ISessionService
+	public interface ISessionService
 	{
 		IEnumerable<SessionViewModel> GetAllSessions();
 		SessionViewModel? GetSessionById(int sessionId);
@@ -10,5 +10,7 @@ namespace GymManagementBLL.Services.Interfaces
 		bool CreateSession(CreateSessionViewModel createSession);
 		bool UpdateSession(int id, UpdateSessionViewModel updateSession);
 		bool RemoveSession(int sessionId);
+		IEnumerable<TrainerSelectViewModel> GetTrainersForDropDown();
+		IEnumerable<CategorySelectViewModel> GetCategoriesForDropDown();
 	}
 }

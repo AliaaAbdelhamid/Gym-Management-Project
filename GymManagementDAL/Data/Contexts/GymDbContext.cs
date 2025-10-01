@@ -1,24 +1,17 @@
 ﻿using GymManagementDAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace GymManagementDAL.Data.Contexts
 {
-	public class GymDbContext:DbContext
+	public class GymDbContext : DbContext
 	{
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public GymDbContext(DbContextOptions<GymDbContext> dbContextOptions) : base(dbContextOptions)
 		{
-			optionsBuilder.UseSqlServer("Server=.;Database=GymManagement;Trusted_Connection=true;TrustServerCertificate=true");
-		}
 
+		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

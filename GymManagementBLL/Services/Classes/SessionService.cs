@@ -75,9 +75,9 @@ namespace GymManagementBLL.Services.Classes
 			{
 				var repo = _unitOfWork.GetRepository<SessionEntity>();
 
-				if (IsTrainerExists(createSession.TrainerId)) return false;
-				if (IsCategoryExists(createSession.TrainerId)) return false;
-				if (CheckSessionDateRange(createSession.StartDate, createSession.EndDate)) return false;
+				if (!IsTrainerExists(createSession.TrainerId)) return false;
+				if (!IsCategoryExists(createSession.TrainerId)) return false;
+				if (!CheckSessionDateRange(createSession.StartDate, createSession.EndDate)) return false;
 				var sessionEntity = _mapper.Map<SessionEntity>(createSession);
 
 				repo.Add(sessionEntity);
@@ -102,8 +102,8 @@ namespace GymManagementBLL.Services.Classes
 				if (session == null)
 					return false;
 
-				if (IsTrainerExists(updateSession.TrainerId)) return false;
-				if (CheckSessionDateRange(updateSession.StartDate, updateSession.EndDate)) return false;
+				if (!IsTrainerExists(updateSession.TrainerId)) return false;
+				if (!CheckSessionDateRange(updateSession.StartDate, updateSession.EndDate)) return false;
 
 				_mapper.Map(updateSession, session);
 				session.UpdatedAt = DateTime.Now;
