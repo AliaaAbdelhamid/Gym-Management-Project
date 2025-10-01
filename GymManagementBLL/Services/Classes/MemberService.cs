@@ -211,7 +211,7 @@ namespace GymManagementBLL.Services.Classes
 			return !existing.Any();
 		}
 
-		private bool IsPhoneUnique(string phone, int? excludeId = null)
+		private bool IsPhoneUnique(string phone)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Phone == phone);
