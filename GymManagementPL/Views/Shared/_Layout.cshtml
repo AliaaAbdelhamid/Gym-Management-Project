@@ -38,26 +38,32 @@
                     <ul class="navbar-nav m-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Home" ? "active" : "text-black-alternative")"
-                               asp-action="Index"
-                               asp-controller="Home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Session" ? "active" : "text-black-alternative")"
-                               asp-action="Index" asp-controller="Session">Session</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Trainer" ? "active" : "text-black-alternative")"
-                               asp-action="Index" asp-controller="Trainer">Trainers</a>
+                               asp-action="Index" asp-controller="Home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Member" ? "active" : "text-black-alternative")"
                                asp-action="Index" asp-controller="Member">Members</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Trainer" ? "active" : "text-black-alternative")"
+                               asp-action="Index" asp-controller="Trainer">Trainers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Session" ? "active" : "text-black-alternative")"
+                               asp-action="Index" asp-controller="Session">Session</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Plan" ? "active" : "text-black-alternative")"
                                asp-action="Index" asp-controller="Plan">Plans</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "MemberShip" ? "active" : "text-black-alternative")"
+                               asp-action="Index" asp-controller="MemberShips">MemberShips</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "SessionsSchedule" ? "active" : "text-black-alternative")"
+                               asp-action="Index" asp-controller="MemberShips">Sessions Schedule</a>
+                        </li>
                     </ul>
                 </div>
             </div>
