@@ -79,48 +79,19 @@
                             <hr class="mt-2">
                         </div>
                         <div class="row g-3">
+                            
                             <div class="col-12">
                                 <label class="form-label fw-semibold">
                                     Specializations <span class="text-danger">*</span>
                                 </label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" asp-for="Specialties" value="1" id="GeneralFitness" />
-                                            <label class="form-check-label" for="GeneralFitness">
-                                                General Fitness
-                                            </label>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" asp-for="Specialties" value="2" id="Yoga" />
-                                            <label class="form-check-label" for="Yoga">
-                                                Yoga
-                                            </label>
-                                        </div>
+                                @foreach (Specialties specialties in Enum.GetValues<Specialties>())
+                                {
+                                    <div class="form-check ">
+                                        <input class="form-check-input" asp-for="Specialties" type="radio" value="@specialties" />
+                                        <label class="form-check-label">@specialties</label>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" asp-for="Specialties" value="3" id="Boxing" />
-                                            <label class="form-check-label" for="Boxing">
-                                                Boxing
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" asp-for="Specialties" value="4" id="CrossFit" />
-                                            <label class="form-check-label" for="CrossFit">
-                                                CrossFit
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                }
                                 <span asp-validation-for="Specialties" class="text-danger d-block"></span>
                             </div>
 
