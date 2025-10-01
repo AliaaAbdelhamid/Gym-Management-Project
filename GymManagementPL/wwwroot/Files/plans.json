@@ -26,12 +26,5 @@
         "DurationDays": 365,
         "Price": 3000.0,
         "IsActive": true
-    },
-    {
-        "Name": "Student Plan",
-        "Description": "Discounted plan for students with valid ID",
-        "DurationDays": 90,
-        "Price": 600.0,
-        "IsActive": true
     }
 ]

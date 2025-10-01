@@ -1,11 +1,6 @@
 ﻿using GymManagementDAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementDAL.Data.Configurations
 {
@@ -14,27 +9,32 @@ namespace GymManagementDAL.Data.Configurations
 		public void Configure(EntityTypeBuilder<T> builder)
 		{
 			builder.Property(X => X.Name)
-					.HasColumnType("varchar(50)");
+					.HasColumnType("varchar")
+					.HasMaxLength(50);
 
 			builder.OwnsOne(x => x.Address, address =>
 			{
 				address.Property(a => a.Street)
-					   .HasColumnType("varchar(30)")
-					   .HasColumnName("Street");
+					   .HasColumnName("Street")
+					   .HasColumnType("varchar")
+					   .HasMaxLength(30);
 
 				address.Property(a => a.City)
-					   .HasColumnType("varchar(30)")
-					   .HasColumnName("City");
+					   .HasColumnType("varchar")
+					   .HasColumnName("City")
+					   .HasMaxLength(30);
 
 				address.Property(a => a.BuildingNumber)
 					   .HasColumnName("BuildingNumber");
 			});
 
 			builder.Property(X => X.Email)
-				   .HasColumnType("varchar(100)");
+				   .HasColumnType("varchar")
+				   .HasMaxLength(100);
 
 			builder.Property(X => X.Phone)
-				   .HasColumnType("varchar(11)");
+				   .HasColumnType("varchar")
+				   .HasMaxLength(11);
 		}
 	}
 }

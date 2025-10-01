@@ -37,7 +37,7 @@ namespace GymManagementBLL.ViewModels.TrainerViewModels
 		[RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Street can only contain letters, numbers, and spaces")]
 		public string Street { get; set; } = null!;
 
-		[Required(ErrorMessage = "Speciality is Required")]
+		[Required(ErrorMessage = "Specialty is Required")]
 		public Specialties Specialties { get; set; }
 	}
 }
