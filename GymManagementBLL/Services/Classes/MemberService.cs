@@ -1,13 +1,7 @@
-﻿using AutoMapper.Execution;
-using GymManagementBLL.Services.Interfaces;
+﻿using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberViewModel;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
@@ -25,9 +19,10 @@ namespace GymManagementBLL.Services.Classes
 			{
 				var Repo = _unitOfWork.GetRepository<MemberEntity>();
 
-				var MemberExist = Repo.GetAll(X => X.Email == CreatedMember.Email || X.Phone == CreatedMember.Phone).Any();
-				if (MemberExist) return false;
-
+				if (IsEmailUnique(CreatedMember.Email))
+					return false;
+				if (IsPhoneUnique(CreatedMember.Phone))
+					return false;
 				var MemberEntity = new MemberEntity()
 				{
 					Name = CreatedMember.Name,
@@ -109,7 +104,7 @@ namespace GymManagementBLL.Services.Classes
 				viewModel.MembershipEndDate = activeMemberShip.EndDate.ToShortDateString();
 			}
 
-		return viewModel;
+			return viewModel;
 		}
 
 		public HealthRecordViewModel? GetMemberHealthRecord(int MemberId)
@@ -129,16 +124,16 @@ namespace GymManagementBLL.Services.Classes
 		public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
 		{
 			var Member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
-			if(Member is null) return null;
+			if (Member is null) return null;
 			return new MemberToUpdateViewModel()
 			{
 				Email = Member.Email,
 				Phone = Member.Phone,
 				BuildingNumber = Member.Address.BuildingNumber,
 				City = Member.Address.City,
-				Street= Member.Address.Street,
-				Name= Member.Name,
-				Photo=Member.Photo,
+				Street = Member.Address.Street,
+				Name = Member.Name,
+				Photo = Member.Photo,
 			};
 
 		}
@@ -148,6 +143,10 @@ namespace GymManagementBLL.Services.Classes
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
 			var Member = Repo.GetById(MemberId);
 			if (Member is null) return false;
+			var activeBookings = _unitOfWork.GetRepository<BookingEntity>().GetAll(
+			   b => b.MemberId == MemberId && b.Session.StartDate > DateTime.UtcNow);
+
+			if (activeBookings.Any()) return false;
 
 			try
 			{
@@ -163,6 +162,11 @@ namespace GymManagementBLL.Services.Classes
 
 		public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
 		{
+			if (IsEmailUnique(UpdatedMember.Email))
+				return false;
+			if (IsPhoneUnique(UpdatedMember.Phone))
+				return false;
+
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
 			var Member = Repo.GetById(Id);
 			if (Member is null) return false;
@@ -192,6 +196,7 @@ namespace GymManagementBLL.Services.Classes
 			return _unitOfWork.SaveChanges() > 0;
 
 		}
+
 		#region Helper Methods
 
 		private string FormatAddress(Address address)
@@ -199,7 +204,19 @@ namespace GymManagementBLL.Services.Classes
 			if (address == null) return "N/A";
 			return $"{address.BuildingNumber} - {address.Street} - {address.City}";
 		}
+		private bool IsEmailUnique(string email)
+		{
+			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Email == email);
+			return !existing.Any();
+		}
 
+		private bool IsPhoneUnique(string phone, int? excludeId = null)
+		{
+			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Phone == phone);
+			return !existing.Any();
+		}
 		#endregion
 	}
 }
