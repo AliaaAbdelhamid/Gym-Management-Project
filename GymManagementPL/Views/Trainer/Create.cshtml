@@ -72,7 +72,29 @@
                         <span asp-validation-for="City" class="text-danger"></span>
                     </div>
                 </div>
-        
+        <!-- Professional Information -->
+        <div class="section-header mb-3">
+            <h5 class="text-primary fw-bold">Professional Information</h5>
+            <hr class="mt-2">
+        </div>
+        <div class="row g-3">
+
+            <div class="col-12">
+                <label class="form-label fw-semibold">
+                    Specializations <span class="text-danger">*</span>
+                </label>
+
+                @foreach (Specialties specialties in Enum.GetValues<Specialties>())
+                {
+                    <div class="form-check ">
+                        <input class="form-check-input" asp-for="Specialties" type="radio" value="@specialties" />
+                        <label class="form-check-label">@specialties</label>
+                    </div>
+                }
+                <span asp-validation-for="Specialties" class="text-danger d-block"></span>
+            </div>
+        </div>
+
         <footer class="d-flex justify-content-end mt-4">
             <button type="submit" class="btn btn-fill">Add</button>
         </footer>

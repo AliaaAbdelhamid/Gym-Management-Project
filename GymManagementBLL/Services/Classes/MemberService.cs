@@ -19,9 +19,9 @@ namespace GymManagementBLL.Services.Classes
 			{
 				var Repo = _unitOfWork.GetRepository<MemberEntity>();
 
-				if (IsEmailUnique(CreatedMember.Email))
+				if (IsEmailExists(CreatedMember.Email))
 					return false;
-				if (IsPhoneUnique(CreatedMember.Phone))
+				if (IsPhoneExists(CreatedMember.Phone))
 					return false;
 				var MemberEntity = new MemberEntity()
 				{
@@ -162,9 +162,9 @@ namespace GymManagementBLL.Services.Classes
 
 		public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
 		{
-			if (IsEmailUnique(UpdatedMember.Email))
+			if (IsEmailExists(UpdatedMember.Email))
 				return false;
-			if (IsPhoneUnique(UpdatedMember.Phone))
+			if (IsPhoneExists(UpdatedMember.Phone))
 				return false;
 
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
@@ -204,18 +204,18 @@ namespace GymManagementBLL.Services.Classes
 			if (address == null) return "N/A";
 			return $"{address.BuildingNumber} - {address.Street} - {address.City}";
 		}
-		private bool IsEmailUnique(string email)
+		private bool IsEmailExists(string email)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Email == email);
-			return !existing.Any();
+			return existing.Any();
 		}
 
-		private bool IsPhoneUnique(string phone)
+		private bool IsPhoneExists(string phone)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Phone == phone);
-			return !existing.Any();
+			return existing.Any();
 		}
 		#endregion
 	}
