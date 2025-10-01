@@ -22,7 +22,7 @@ namespace GymManagementBLL.Services.Classes
 			{
 				var Repo = _unitOfWork.GetRepository<TrainerEntity>();
 
-				if (IsEmailUnique(createTrainer.Email) || IsPhoneUnique(createTrainer.Phone)) return false;
+				if (IsEmailExists(createTrainer.Email) || IsPhoneExists(createTrainer.Phone)) return false;
 				var TrainerEntity = _mapper.Map<CreateTrainerViewModel, TrainerEntity>(createTrainer);
 
 
@@ -81,7 +81,7 @@ namespace GymManagementBLL.Services.Classes
 			var Repo = _unitOfWork.GetRepository<TrainerEntity>();
 			var TrainerToUpdate = Repo.GetById(trainerId);
 
-			if (TrainerToUpdate is null || IsEmailUnique(updatedTrainer.Email) || IsPhoneUnique(updatedTrainer.Phone)) return false;
+			if (TrainerToUpdate is null || IsEmailExists(updatedTrainer.Email) || IsPhoneExists(updatedTrainer.Phone)) return false;
 
 			_mapper.Map(updatedTrainer, TrainerToUpdate);
 			TrainerToUpdate.UpdatedAt = DateTime.Now;
@@ -95,18 +95,18 @@ namespace GymManagementBLL.Services.Classes
 			if (address == null) return "N/A";
 			return $"{address.BuildingNumber} - {address.Street} - {address.City}";
 		}
-		private bool IsEmailUnique(string email)
+		private bool IsEmailExists(string email)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
-				m => m.Email == email);
-			return !existing.Any();
+				m => m.Email == email).Any();
+			return existing;
 		}
 
-		private bool IsPhoneUnique(string phone)
+		private bool IsPhoneExists(string phone)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
-				m => m.Phone == phone);
-			return !existing.Any();
+				m => m.Phone == phone).Any();
+			return existing;
 		}
 
 		private bool HasActiveSessions(int Id)
