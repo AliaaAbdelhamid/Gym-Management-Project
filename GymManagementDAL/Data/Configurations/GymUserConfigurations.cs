@@ -12,6 +12,10 @@ namespace GymManagementDAL.Data.Configurations
 					.HasColumnType("varchar")
 					.HasMaxLength(50);
 
+			builder.Property(X => X.Email)
+				   .HasColumnType("varchar")
+				   .HasMaxLength(100);
+
 			builder.OwnsOne(x => x.Address, address =>
 			{
 				address.Property(a => a.Street)
@@ -28,13 +32,19 @@ namespace GymManagementDAL.Data.Configurations
 					   .HasColumnName("BuildingNumber");
 			});
 
-			builder.Property(X => X.Email)
-				   .HasColumnType("varchar")
-				   .HasMaxLength(100);
 
 			builder.Property(X => X.Phone)
 				   .HasColumnType("varchar")
 				   .HasMaxLength(11);
+
+			builder.HasIndex(x => x.Email).IsUnique();
+			builder.HasIndex(x => x.Phone).IsUnique();
+
+			builder.ToTable(t =>
+			{
+				t.HasCheckConstraint("GymUser_EmailCheck", "Email LIKE '_%@_%._%'");
+				t.HasCheckConstraint("GymUser_PhoneCheck", "Phone LIKE '01%' and Phone Not Like '%[^0-9]%'");
+			});
 		}
 	}
 }
