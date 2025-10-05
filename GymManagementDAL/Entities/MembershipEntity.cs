@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GymManagementDAL.Entities
+﻿namespace GymManagementDAL.Entities
 {
 	public class MembershipEntity : BaseEntity
 	{
@@ -16,7 +10,7 @@ namespace GymManagementDAL.Entities
 		{
 			get
 			{
-				if (EndDate == DateTime.Now)
+				if (EndDate <= DateTime.Now)
 					return "Expired";
 				else
 					return "Active";

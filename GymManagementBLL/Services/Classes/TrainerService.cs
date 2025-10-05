@@ -90,11 +90,6 @@ namespace GymManagementBLL.Services.Classes
 		}
 		#region Helper Methods
 
-		private string FormatAddress(Address address)
-		{
-			if (address == null) return "N/A";
-			return $"{address.BuildingNumber} - {address.Street} - {address.City}";
-		}
 		private bool IsEmailExists(string email)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
