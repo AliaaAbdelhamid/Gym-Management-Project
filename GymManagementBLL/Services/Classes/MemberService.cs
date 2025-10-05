@@ -82,7 +82,6 @@ namespace GymManagementBLL.Services.Classes
 
 			var viewModel = new MemberViewModel
 			{
-				Id = member.Id,
 				Name = member.Name,
 				Email = member.Email,
 				Phone = member.Phone,
@@ -148,8 +147,15 @@ namespace GymManagementBLL.Services.Classes
 
 			if (activeBookings.Any()) return false;
 
+			var MemberShips = _unitOfWork.GetRepository<MembershipEntity>().GetAll(X => X.MemberId == MemberId);
+
 			try
 			{
+				if (MemberShips.Any())
+				{
+					foreach (var membership in MemberShips)
+						_unitOfWork.GetRepository<MembershipEntity>().Delete(membership);
+				}
 				_unitOfWork.GetRepository<MemberEntity>().Delete(Member);
 				return _unitOfWork.SaveChanges() > 0;
 			}
@@ -179,22 +185,6 @@ namespace GymManagementBLL.Services.Classes
 
 			Repo.Update(Member);
 			return _unitOfWork.SaveChanges() > 0;
-		}
-
-		public bool UpdateMemberHealthRecord(int Id, HealthRecordViewModel UpdatedHealthRecord)
-		{
-			var Repo = _unitOfWork.GetRepository<HealthRecordEntity>();
-			var MemberHealthRecord = Repo.GetById(Id);
-			if (MemberHealthRecord is null) return false;
-			MemberHealthRecord.Weight = UpdatedHealthRecord.Weight;
-			MemberHealthRecord.Height = UpdatedHealthRecord.Height;
-			MemberHealthRecord.BloodType = UpdatedHealthRecord.BloodType;
-			MemberHealthRecord.Note = UpdatedHealthRecord.Note;
-			MemberHealthRecord.UpdatedAt = DateTime.Now;
-
-			Repo.Update(MemberHealthRecord);
-			return _unitOfWork.SaveChanges() > 0;
-
 		}
 
 		#region Helper Methods

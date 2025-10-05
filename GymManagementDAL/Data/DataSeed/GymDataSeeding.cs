@@ -1,13 +1,7 @@
 ﻿using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace GymManagementDAL.Data.DataSeed
 {
@@ -19,7 +13,7 @@ namespace GymManagementDAL.Data.DataSeed
 			{
 				bool HasCategories = dbContext.Categories.Any();
 				bool HasPlans = dbContext.Plans.Any();
-				if ( HasCategories && HasPlans) return false;
+				if (HasCategories && HasPlans) return false;
 
 				if (!HasCategories)
 				{

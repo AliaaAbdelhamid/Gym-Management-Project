@@ -49,6 +49,17 @@
                                 <h4 class="text-danger mb-0">@Model.BloodType</h4>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 bg-light p-4 h-100">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-warning rounded-circle p-2 me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                        <span class="text-white fw-bold">N</span>
+                                    </div>
+                                    <h6 class="text-muted mb-0">Note</h6>
+                                </div>
+                                <h4 class="text-danger mb-0">@(!string.IsNullOrEmpty(Model.Note) ? Model.Note : "No Note Found")</h4>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer bg-white border-0 p-4">

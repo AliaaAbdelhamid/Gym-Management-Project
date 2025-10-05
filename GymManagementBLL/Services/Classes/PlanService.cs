@@ -99,6 +99,8 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
+
+		#region Helper Methods
 		private bool HasActiveMemberShips(int Id)
 		{
 			var activeMemberships = _unitOfWork.GetRepository<MembershipEntity>().GetAll(m => m.PlanId == Id);
@@ -107,5 +109,6 @@ namespace GymManagementBLL.Services.Classes
 			else
 				return false;
 		}
+		#endregion
 	}
 }
