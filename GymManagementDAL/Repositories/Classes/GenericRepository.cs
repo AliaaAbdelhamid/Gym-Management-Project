@@ -2,15 +2,10 @@
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-	internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+	internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
 	{
 		private readonly GymDbContext _dbContext;
 
