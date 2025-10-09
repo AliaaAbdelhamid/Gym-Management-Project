@@ -91,7 +91,7 @@ namespace GymManagementPL.Controllers
 
 			if (session == null)
 			{
-				TempData["ErrorMessage"] = "Session not found.";
+				TempData["ErrorMessage"] = "Session cannot be updated";
 				return RedirectToAction(nameof(Index));
 			}
 
@@ -165,7 +165,7 @@ namespace GymManagementPL.Controllers
 				}
 				else
 				{
-					TempData["ErrorMessage"] = "Failed to delete session.";
+					TempData["ErrorMessage"] = "Session cannot be deleted";
 				}
 			}
 			catch (Exception)

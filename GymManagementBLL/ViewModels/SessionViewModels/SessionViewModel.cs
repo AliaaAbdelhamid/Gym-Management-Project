@@ -12,12 +12,21 @@
 		public int AvailableSlots { get; set; }
 
 		// Computed properties
-		public string DateRangeDisplay => $"{StartDate:MMM dd} - {EndDate:MMM dd, yyyy}";
+		public string DateDisplay => $"{StartDate:MMM dd , yyyy}";
 		public string TimeRangeDisplay => $"{StartDate:hh:mm tt} - {EndDate:hh:mm tt}";
 		public TimeSpan Duration => EndDate - StartDate;
-		public bool IsUpcoming => StartDate > DateTime.Now;
-		public bool IsOngoing => StartDate <= DateTime.Now && EndDate >= DateTime.Now;
-		public bool IsCompleted => EndDate < DateTime.Now;
-		public string StatusBadge => IsOngoing ? "Ongoing" : IsUpcoming ? "Upcoming" : "Completed";
+
+		public string Status
+		{
+			get
+			{
+				if (StartDate > DateTime.Now)
+					return "Upcoming";
+				else if (StartDate <= DateTime.Now && EndDate >= DateTime.Now)
+					return "Ongoing";
+				else
+					return "Completed";
+			}
+		}
 	}
 }

@@ -42,8 +42,8 @@
                             </div>
                             <div class="col-12 mt-2">
                                 <small class="text-muted d-block">Status</small>
-                                <span class="badge bg-@(Model.IsOngoing ? "success" : Model.IsUpcoming ? "primary" : "secondary")">
-                                    @Model.StatusBadge
+                                <span class="badge bg-@(Model.Status == "Ongoing" ? "success" : Model.Status == "Upcoming" ? "primary" : "secondary")">
+                                    @Model.Status
                                 </span>
                             </div>
                         </div>

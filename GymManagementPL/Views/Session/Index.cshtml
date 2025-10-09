@@ -39,12 +39,12 @@ else if (TempData["ErrorMessage"] != null)
             {
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0 session-card">
-                        <div class="card-header text-white py-3 @(session.IsOngoing ? "bg-success" : session.IsUpcoming ? "bg-primary" : "bg-secondary") ">
+                        <div class="card-header text-white py-3 @(session.Status == "Ongoing" ? "bg-success" : session.Status == "Upcoming" ? "bg-primary" : "bg-secondary") ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="bi bi-calendar-event me-2"></i>@session.CategoryName
                                 </h5>
-                                <span class="badge bg-light text-dark">@session.StatusBadge</span>
+                                <span class="badge bg-light text-dark">@session.Status</span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -56,12 +56,12 @@ else if (TempData["ErrorMessage"] != null)
                                     <strong>Trainer:</strong> @session.TrainerName
                                 </div>
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-clock text-primary-color me-2"></i>
-                                    <strong>Time:</strong> @session.TimeRangeDisplay
+                                    <i class="bi bi-calendar3 text-primary-color me-2"></i>
+                                    <strong>Date:</strong> @session.DateDisplay
                                 </div>
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-calendar3 text-primary-color me-2"></i>
-                                    <strong>Date:</strong> @session.DateRangeDisplay
+                                    <i class="bi bi-clock text-primary-color me-2"></i>
+                                    <strong>Time:</strong> @session.TimeRangeDisplay
                                 </div>
                                 <div class="info-item mb-2">
                                     <i class="bi bi-hourglass-split text-primary-color me-2"></i>
