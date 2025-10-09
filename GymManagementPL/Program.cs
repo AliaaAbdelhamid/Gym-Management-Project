@@ -23,20 +23,27 @@ namespace GymManagementPL
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 			});
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+			builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+			builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 			builder.Services.AddScoped<IMemberService, MemberService>();
 			builder.Services.AddScoped<ITrainerService, TrainerService>();
 			builder.Services.AddScoped<IPlanService, PlanService>();
 			builder.Services.AddScoped<ISessionService, SessionService>();
+			builder.Services.AddScoped<IMembershipService, MembershipService>();
+			builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+
+
+
 			builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfile()));
 			var app = builder.Build();
 
 			#region Migrate Database -  Data Seeding
-			using var Scoope = app.Services.CreateScope();
-			var DbContextObj = Scoope.ServiceProvider.GetRequiredService<GymDbContext>();
-			var PendingMigrations = DbContextObj.Database.GetPendingMigrations();
-			if (PendingMigrations.Any())
-				DbContextObj.Database.Migrate();
-			GymDataSeeding.SeedData(DbContextObj);
+			using var Scope = app.Services.CreateScope();
+			var dbContextObj = Scope.ServiceProvider.GetRequiredService<GymDbContext>();
+			var PendingMigrations = dbContextObj.Database.GetPendingMigrations();
+			if (PendingMigrations?.Any() ?? false)
+				dbContextObj.Database.Migrate();
+			GymDataSeeding.SeedData(dbContextObj);
 			#endregion
 
 			// Configure the HTTP request pipeline.

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MemberShipForMemberViewModel>
+
+@{
+    ViewData["Title"] = "Member Memberships";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <h2>Memberships for @Model.FirstOrDefault()!.MemberName</h2>
+        </div>
+        <div class="col text-end">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["Warning"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Remaining Days</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PlanName</td>
+                            <td>@item.StartDate.ToString("MMM dd, yyyy")</td>
+                            <td>@item.EndDate.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                @if (item.RemainingDays > 0)
+                                {
+                                    <span class="badge bg-info">@item.RemainingDays days</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Expired</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Status == "Active")
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactive</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

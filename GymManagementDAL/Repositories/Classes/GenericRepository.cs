@@ -2,15 +2,10 @@
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-	internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 	{
 		private readonly GymDbContext _dbContext;
 
@@ -26,6 +21,11 @@ namespace GymManagementDAL.Repositories.Classes
 		public void Delete(TEntity entity)
 		{
 			_dbContext.Remove(entity);
+		}
+
+		public bool Exists(Func<TEntity, bool> predicate)
+		{
+			return _dbContext.Set<TEntity>().Any(predicate);
 		}
 
 		public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
