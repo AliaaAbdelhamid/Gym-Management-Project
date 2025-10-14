@@ -51,25 +51,24 @@ namespace GymManagementPL.Controllers
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public IActionResult Edit([FromRoute]int id, UpdatePlanViewModel model)
+		public IActionResult Edit([FromRoute] int id, UpdatePlanViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(model);
 			}
 
-				var result = _planService.UpdatePlan(id, model);
+			var result = _planService.UpdatePlan(id, model);
 
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Plan updated successfully!";
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Failed to update plan.";
-				}
-				return RedirectToAction(nameof(Index));
+			if (result)
+			{
+				TempData["SuccessMessage"] = "Plan updated successfully!";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Failed to update plan.";
+			}
+			return RedirectToAction(nameof(Index));
 		}
 		#endregion
 

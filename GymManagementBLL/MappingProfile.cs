@@ -68,5 +68,7 @@ namespace GymManagementBLL
 			CreateMap<MemberEntity, MemberSelectListViewModel>();
 			CreateMap<PlanEntity, PlanSelectListViewModel>();
 		}
+
+
 	}
 }

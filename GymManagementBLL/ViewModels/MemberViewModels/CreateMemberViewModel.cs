@@ -1,11 +1,5 @@
-﻿using GymManagementDAL.Entities;
-using GymManagementDAL.Entities.Enums;
-using System;
-using System.Collections.Generic;
+﻿using GymManagementDAL.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.MemberViewModel
 {
@@ -35,7 +29,7 @@ namespace GymManagementBLL.ViewModels.MemberViewModel
 		public Gender Gender { get; set; }
 
 		[Required(ErrorMessage = "Building Number Is Required")]
-		[Range(1, int.MaxValue, ErrorMessage = "Building Number must be greater than 0")]
+		[Range(1, 9000, ErrorMessage = "Building Number must be greater than 0")]
 		public int BuildingNumber { get; set; }
 
 		[Required(ErrorMessage = "City Is Required")]

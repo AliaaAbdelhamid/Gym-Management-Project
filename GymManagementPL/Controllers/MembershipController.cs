@@ -8,7 +8,6 @@ namespace GymManagementPL.Controllers
 	public class MembershipController : Controller
 	{
 		private readonly IMembershipService _membershipService;
-
 		public MembershipController(IMembershipService membershipService)
 		{
 			_membershipService = membershipService;
@@ -16,23 +15,6 @@ namespace GymManagementPL.Controllers
 		public IActionResult Index()
 		{
 			var memberships = _membershipService.GetAllMemberShips();
-			return View(memberships);
-		}
-		public IActionResult MemberMemberships(int id)
-		{
-			if (id <= 0)
-			{
-				return BadRequest();
-			}
-
-			var memberships = _membershipService.GetMembershipsForSpecificMember(id);
-
-			if (!memberships.Any())
-			{
-				TempData["Warning"] = "No memberships found for this member.";
-			}
-
-
 			return View(memberships);
 		}
 		public IActionResult Create()
@@ -54,30 +36,12 @@ namespace GymManagementPL.Controllers
 				}
 				else
 				{
-					TempData["Error"] = "Failed to create membership. member doesn't have an active membership.";
+					TempData["Error"] = "Failed to create membership. member have an active membership.";
 				}
 			}
 			LoadDropdowns();
 			return View(model);
 		}
-
-		[HttpPost]
-		public IActionResult RenewConfirmed(int memberId, int planId)
-		{
-			var result = _membershipService.RenewMemberShip(memberId, planId);
-
-			if (result)
-			{
-				TempData["Success"] = "Membership renewed successfully!";
-				return RedirectToAction(nameof(MemberMemberships), new { id = memberId });
-			}
-			else
-			{
-				TempData["Error"] = "Failed to renew membership. Please check if member and plan exist.";
-				return RedirectToAction(nameof(Index));
-			}
-		}
-
 		[HttpPost]
 		public IActionResult Cancel(int id)
 		{

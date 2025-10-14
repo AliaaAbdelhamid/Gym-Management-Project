@@ -1,18 +1,17 @@
 ﻿using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberViewModel;
-using GymManagementPL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
 {
-    public class MemberController : Controller
-    {
-        private readonly IMemberService _memberService;
+	public class MemberController : Controller
+	{
+		private readonly IMemberService _memberService;
 
-        public MemberController(IMemberService memberService)
-        {
-            _memberService = memberService;
-        }
+		public MemberController(IMemberService memberService)
+		{
+			_memberService = memberService;
+		}
 		#region Get All Members
 		public IActionResult Index()
 		{
@@ -37,7 +36,7 @@ namespace GymManagementPL.Controllers
 				return View(nameof(Create), model);
 			}
 
-			bool Result =  _memberService.CreateMember(model);
+			bool Result = _memberService.CreateMember(model);
 			if (Result)
 			{
 				TempData["SuccessMessage"] = "Member Updated Successfully.";
@@ -50,7 +49,7 @@ namespace GymManagementPL.Controllers
 
 		}
 		#endregion
-		
+
 		#region Show Member Data 
 
 		public IActionResult MemberDetails(int id)
@@ -76,7 +75,7 @@ namespace GymManagementPL.Controllers
 			}
 
 			return View(member);
-		} 
+		}
 		#endregion
 
 		#region Member Data Edit 
@@ -117,9 +116,9 @@ namespace GymManagementPL.Controllers
 
 		#region Delete Member 
 
-		public IActionResult Delete([FromRoute]int id)
+		public IActionResult Delete([FromRoute] int id)
 		{
-			var member =  _memberService.GetMemberDetails(id);
+			var member = _memberService.GetMemberDetails(id);
 
 			if (member == null)
 			{
@@ -138,7 +137,7 @@ namespace GymManagementPL.Controllers
 			if (Result)
 				TempData["SuccessMessage"] = "Member deleted successfully!";
 			else
-				TempData["ErrorMessage"] = "Member not found.";
+				TempData["ErrorMessage"] = "Member Can not Deleted.";
 			return RedirectToAction(nameof(Index));
 		}
 
