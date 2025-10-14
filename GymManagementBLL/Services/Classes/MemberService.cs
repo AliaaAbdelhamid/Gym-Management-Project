@@ -44,7 +44,6 @@ namespace GymManagementBLL.Services.Classes
 			if (!Members.Any()) return [];
 			return _mapper.Map<IEnumerable<MemberViewModel>>(Members);
 		}
-
 		public MemberViewModel? GetMemberDetails(int MemberId)
 		{
 			var member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
@@ -67,7 +66,6 @@ namespace GymManagementBLL.Services.Classes
 
 			return viewModel;
 		}
-
 		public HealthRecordViewModel? GetMemberHealthRecord(int MemberId)
 		{
 			var MemberHealthRecord = _unitOfWork.GetRepository<HealthRecordEntity>().GetById(MemberId);
@@ -75,14 +73,12 @@ namespace GymManagementBLL.Services.Classes
 
 			return _mapper.Map<HealthRecordViewModel>(MemberHealthRecord);
 		}
-
 		public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
 		{
 			var member = _unitOfWork.GetRepository<MemberEntity>().GetById(MemberId);
 			if (member is null) return null;
 			return _mapper.Map<MemberToUpdateViewModel>(member);
 		}
-
 		public bool RemoveMember(int MemberId)
 		{
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
@@ -114,7 +110,6 @@ namespace GymManagementBLL.Services.Classes
 			}
 
 		}
-
 		public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
 		{
 			var emailExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
@@ -136,14 +131,12 @@ namespace GymManagementBLL.Services.Classes
 
 		#region Helper Methods
 
-
 		private bool IsEmailExists(string email)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Email == email);
 			return existing.Any();
 		}
-
 		private bool IsPhoneExists(string phone)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GymManagementBLL.ViewModels.MembershipViewModels;
 using GymManagementBLL.ViewModels.MemberViewModel;
+using GymManagementBLL.ViewModels.PlanViewModels;
 using GymManagementBLL.ViewModels.SessionViewModels;
 using GymManagementBLL.ViewModels.TrainerViewModels;
 using GymManagementDAL.Entities;
@@ -70,7 +71,6 @@ namespace GymManagementBLL
 			CreateMap<MemberEntity, MemberSelectListViewModel>();
 			CreateMap<PlanEntity, PlanSelectListViewModel>();
 		}
-
 		private void MapMember()
 		{
 			CreateMap<CreateMemberViewModel, MemberEntity>()
@@ -105,5 +105,14 @@ namespace GymManagementBLL
 				});
 		}
 
+		private void MapPlan()
+		{
+			CreateMap<PlanEntity, PlanViewModel>();
+			CreateMap<PlanEntity, UpdatePlanViewModel>().ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Name));
+			CreateMap<UpdatePlanViewModel, PlanEntity>()
+		   .ForMember(dest => dest.Name, opt => opt.Ignore())
+		   .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => DateTime.Now));
+
+		}
 	}
 }

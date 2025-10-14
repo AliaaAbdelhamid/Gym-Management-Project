@@ -18,7 +18,6 @@ namespace GymManagementBLL.Services.Classes
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 		}
-
 		public bool CancelBooking(int MemberId, int SessionId)
 		{
 			try
@@ -37,7 +36,6 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public bool CreateNewBooking(CreateBookingViewModel createdBooking)
 		{
 			try
@@ -64,7 +62,6 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public IEnumerable<SessionViewModel> GetAllSessions()
 		{
 			var bookings = _unitOfWork.SessionRepository
@@ -79,7 +76,6 @@ namespace GymManagementBLL.Services.Classes
 			}
 			return MappedSession;
 		}
-
 		public IEnumerable<MemberForSessionViewModel> GetMembersForUpcomingBySessionId(int sessionId)
 		{
 			var MemberForSession = _unitOfWork.BookingRepository.GetBySessionId(sessionId);
@@ -91,7 +87,6 @@ namespace GymManagementBLL.Services.Classes
 				BookingDate = X.CreatedAt.ToString()
 			});
 		}
-
 		public IEnumerable<MemberForSessionViewModel> GetMembersForOngoingBySessionId(int sessionId)
 		{
 			var MemberForSession = _unitOfWork.BookingRepository.GetBySessionId(sessionId);
@@ -116,7 +111,6 @@ namespace GymManagementBLL.Services.Classes
 
 			return _mapper.Map<IEnumerable<MemberSelectListViewModel>>(availableMembers);
 		}
-
 		public bool MemberAttended(int MemberId, int SessionId)
 		{
 			try

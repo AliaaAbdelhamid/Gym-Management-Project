@@ -16,7 +16,6 @@ namespace GymManagementBLL.Services.Classes
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 		}
-
 		public IEnumerable<SessionViewModel> GetAllSessions()
 		{
 			var sessions = _unitOfWork.SessionRepository.GetAllSessionsWithTrainerAndCategory().OrderByDescending(X => X.StartDate);
@@ -32,7 +31,6 @@ namespace GymManagementBLL.Services.Classes
 			return MappedSessions;
 
 		}
-
 		public SessionViewModel? GetSessionById(int sessionId)
 		{
 			var session = _unitOfWork.SessionRepository.GetSessionWithTrainerAndCategory(sessionId);
@@ -44,7 +42,6 @@ namespace GymManagementBLL.Services.Classes
 			MappedSession.AvailableSlots = MappedSession.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id);
 			return MappedSession;
 		}
-
 		public UpdateSessionViewModel? GetSessionToUpdate(int sessionId)
 		{
 			var session = _unitOfWork.GetRepository<SessionEntity>().GetById(sessionId);
@@ -53,7 +50,6 @@ namespace GymManagementBLL.Services.Classes
 
 			return _mapper.Map<UpdateSessionViewModel>(session);
 		}
-
 		public bool CreateSession(CreateSessionViewModel createSession)
 		{
 			try
@@ -73,7 +69,6 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public bool UpdateSession(int id, UpdateSessionViewModel updateSession)
 		{
 			try
@@ -96,7 +91,6 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public bool RemoveSession(int sessionId)
 		{
 			try
@@ -114,13 +108,11 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public IEnumerable<TrainerSelectViewModel> GetTrainersForDropDown()
 		{
 			var trainers = _unitOfWork.GetRepository<TrainerEntity>().GetAll();
 			return _mapper.Map<IEnumerable<TrainerSelectViewModel>>(trainers);
 		}
-
 		public IEnumerable<CategorySelectViewModel> GetCategoriesForDropDown()
 		{
 
@@ -146,13 +138,11 @@ namespace GymManagementBLL.Services.Classes
 			var trainer = _unitOfWork.GetRepository<TrainerEntity>().GetById(id);
 			return trainer is null ? false : true;
 		}
-
 		private bool IsCategoryExists(int id)
 		{
 			var category = _unitOfWork.GetRepository<CategoryEntity>().GetById(id);
 			return category is null ? false : true;
 		}
-
 		private bool IsValidDateRange(DateTime StartDate, DateTime EndDate)
 		{
 			return EndDate > StartDate && StartDate > DateTime.Now;

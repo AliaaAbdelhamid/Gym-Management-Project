@@ -47,33 +47,6 @@ namespace GymManagementBLL.Services.Classes
 			if (!MemberShips.Any()) return [];
 			return _mapper.Map<IEnumerable<MemberShipViewModel>>(MemberShips);
 		}
-		public IEnumerable<MemberShipForMemberViewModel> GetMembershipsForSpecificMember(int MemberId)
-		{
-			var MemberShips = _unitOfWork.MembershipRepository.GetAllMembershipsWithMemberAndPlan(X => X.MemberId == MemberId);
-			if (!MemberShips.Any()) return [];
-			return _mapper.Map<IEnumerable<MemberShipForMemberViewModel>>(MemberShips);
-		}
-		public bool RenewMemberShip(int MemberId, int PlanId)
-		{
-			if (!IsMemberExists(MemberId) || !IsPlanExists(PlanId)) return false;
-
-			var Repo = _unitOfWork.GetRepository<MembershipEntity>();
-			var MemberShip = Repo.GetAll(X => X.MemberId == MemberId && X.PlanId == PlanId)
-										.FirstOrDefault();
-			if (MemberShip is null) return false;
-			Repo.Delete(MemberShip);
-
-			var Plan = _unitOfWork.GetRepository<PlanEntity>().GetById(PlanId);
-			var NewMemberShip = new MembershipEntity()
-			{
-				PlanId = PlanId,
-				MemberId = MemberId,
-				EndDate = DateTime.Now.AddDays(Plan!.DurationDays),
-			};
-
-			Repo.Add(NewMemberShip);
-			return _unitOfWork.SaveChanges() > 0;
-		}
 		public IEnumerable<PlanSelectListViewModel> GetPlansForDropDown()
 		{
 			var Plans = _unitOfWork.GetRepository<PlanEntity>().GetAll(X => X.IsActive == true);

@@ -37,7 +37,6 @@ namespace GymManagementBLL.Services.Classes
 				return false;
 			}
 		}
-
 		public IEnumerable<TrainerViewModel> GetAllTrainers()
 		{
 			var Trainers = _unitOfWork.GetRepository<TrainerEntity>().GetAll();
@@ -46,7 +45,6 @@ namespace GymManagementBLL.Services.Classes
 			var mappedTrainers = _mapper.Map<IEnumerable<TrainerEntity>, IEnumerable<TrainerViewModel>>(Trainers);
 			return mappedTrainers;
 		}
-
 		public TrainerViewModel? GetTrainerDetails(int trainerId)
 		{
 			var Trainer = _unitOfWork.GetRepository<TrainerEntity>().GetById(trainerId);
@@ -75,35 +73,40 @@ namespace GymManagementBLL.Services.Classes
 			return _unitOfWork.SaveChanges() > 0;
 
 		}
-
 		public bool UpdateTrainerDetails(UpdateTrainerViewModel updatedTrainer, int trainerId)
 		{
+			var emailExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Email == updatedTrainer.Email && m.Id != trainerId);
+
+			var PhoneExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Phone == updatedTrainer.Phone && m.Id != trainerId);
+
+			if (emailExist.Any() || PhoneExist.Any()) return false;
+
 			var Repo = _unitOfWork.GetRepository<TrainerEntity>();
 			var TrainerToUpdate = Repo.GetById(trainerId);
 
-			if (TrainerToUpdate is null || IsEmailExists(updatedTrainer.Email) || IsPhoneExists(updatedTrainer.Phone)) return false;
+			if (TrainerToUpdate is null) return false;
 
 			_mapper.Map(updatedTrainer, TrainerToUpdate);
 			TrainerToUpdate.UpdatedAt = DateTime.Now;
 
 			return _unitOfWork.SaveChanges() > 0;
 		}
-		#region Helper Methods
 
+		#region Helper Methods
 		private bool IsEmailExists(string email)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Email == email).Any();
 			return existing;
 		}
-
 		private bool IsPhoneExists(string phone)
 		{
 			var existing = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Phone == phone).Any();
 			return existing;
 		}
-
 		private bool HasActiveSessions(int Id)
 		{
 			var activeSessions = _unitOfWork.GetRepository<SessionEntity>().GetAll(
