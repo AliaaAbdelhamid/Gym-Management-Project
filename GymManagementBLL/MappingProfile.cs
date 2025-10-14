@@ -41,12 +41,13 @@ namespace GymManagementBLL
 		private void MapSession()
 		{
 			CreateMap<CreateSessionViewModel, SessionEntity>();
-			CreateMap<UpdateSessionViewModel, SessionEntity>();
 			CreateMap<SessionEntity, SessionViewModel>()
 						.ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
 						.ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name))
 						.ForMember(dest => dest.AvailableSlots, opt => opt.Ignore()); // Will Be Calculated After Map
-			CreateMap<SessionEntity, UpdateSessionViewModel>();
+			CreateMap<UpdateSessionViewModel, SessionEntity>().ReverseMap();
+
+
 			CreateMap<TrainerEntity, TrainerSelectViewModel>();
 			CreateMap<CategoryEntity, CategorySelectViewModel>()
 				.ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.CategoryName));
