@@ -39,7 +39,7 @@ namespace GymManagementPL.Controllers
 			bool Result = _memberService.CreateMember(model);
 			if (Result)
 			{
-				TempData["SuccessMessage"] = "Member Updated Successfully.";
+				TempData["SuccessMessage"] = "Member Created Successfully.";
 			}
 			else
 			{
