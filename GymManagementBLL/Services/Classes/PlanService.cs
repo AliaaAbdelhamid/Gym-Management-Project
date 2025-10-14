@@ -35,7 +35,7 @@ namespace GymManagementBLL.Services.Classes
 		{
 			var plan = _unitOfWork.GetRepository<PlanEntity>().GetById(planId);
 
-			if (plan == null || plan.IsActive == false)
+			if (plan == null || plan.IsActive == false || HasActiveMemberShips(planId))
 				return null;
 
 			return _mapper.Map<UpdatePlanViewModel>(plan);

@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary-color text-white text-center py-5">
+                <div class="card-header @(Model.IsActive ? "bg-primary-color" : "bg-secondary") text-white text-center py-5">
                     <i class="bi bi-award display-4 mb-3"></i>
                     <h2 class="mb-0">@Model.Name</h2>
                 </div>
@@ -46,12 +46,23 @@
                         <div class="detail-item mb-4">
                             <div class="d-flex align-items-center mb-2">
                                 <div class="icon-box me-3">
-                                    <i class="bi bi-check-circle text-success fs-4"></i>
+                                    <i class="bi @(Model.IsActive ? "bi-check-circle-fill text-success" : "bi-x-circle-fill text-danger") fs-4"></i>
                                 </div>
                                 <div>
                                     <h6 class="mb-0 text-muted">Status</h6>
                                     <p class="mb-0">
-                                        <span class="badge bg-success">Active</span>
+                                        @if (Model.IsActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                Active
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">
+                                                Inactive
+                                            </span>
+                                        }
                                     </p>
                                 </div>
                             </div>

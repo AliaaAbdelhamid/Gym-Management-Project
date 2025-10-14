@@ -43,7 +43,7 @@ namespace GymManagementPL.Controllers
 
 			if (plan == null)
 			{
-				TempData["ErrorMessage"] = "Plan Not Found Or Is Not Active";
+				TempData["ErrorMessage"] = "Plan Can not be Updated";
 				return RedirectToAction(nameof(Index));
 			}
 

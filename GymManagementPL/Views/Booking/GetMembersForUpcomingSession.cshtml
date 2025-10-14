@@ -87,16 +87,5 @@ else if (TempData["ErrorMessage"] != null)
 
 </div>
 @section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const alertBox = document.getElementById("Alert");
-            if (alertBox) {
-                setTimeout(() => {
-                    alertBox.style.transition = "opacity 0.5s ease";
-                    alertBox.style.opacity = "0";
-                    setTimeout(() => alertBox.remove(), 500);
-                }, 1500);
-            }
-        });
-    </script>
+    <partial name="_AlertBoxScript.cshtml" />
 }

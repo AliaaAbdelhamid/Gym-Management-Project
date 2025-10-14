@@ -45,10 +45,7 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-
+    <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function() {
             // Initialize Select2 for better dropdown experience
