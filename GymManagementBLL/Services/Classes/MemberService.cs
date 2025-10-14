@@ -57,8 +57,8 @@ namespace GymManagementBLL.Services.Classes
 
 		public IEnumerable<MemberViewModel> GetAllMembers()
 		{
-			var Members = _unitOfWork.GetRepository<MemberEntity>().GetAll() ?? [];
-			if (Members is null || !Members.Any()) return [];
+			var Members = _unitOfWork.GetRepository<MemberEntity>().GetAll();
+			if (!Members.Any()) return [];
 
 			var memberViewModels = Members.Select(m => new MemberViewModel
 			{
