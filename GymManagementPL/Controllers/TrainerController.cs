@@ -1,6 +1,5 @@
 ﻿using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.TrainerViewModels;
-using GymManagementDAL.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
@@ -104,19 +103,19 @@ namespace GymManagementPL.Controllers
 			{
 				return View(model);
 			}
-				var result = _trainerService.UpdateTrainerDetails(model, id);
+			var result = _trainerService.UpdateTrainerDetails(model, id);
 
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Trainer updated successfully!";
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Failed to update trainer.";
-				}
+			if (result)
+			{
+				TempData["SuccessMessage"] = "Trainer updated successfully!";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Failed to update trainer.";
+			}
 
-				return RedirectToAction(nameof(Index));
-			
+			return RedirectToAction(nameof(Index));
+
 		}
 		#endregion
 
@@ -139,16 +138,16 @@ namespace GymManagementPL.Controllers
 		[HttpPost]
 		public IActionResult DeleteConfirmed(int id)
 		{
-				var result = _trainerService.RemoveTrainer(id);
+			var result = _trainerService.RemoveTrainer(id);
 
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Trainer deleted successfully!";
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Failed to delete trainer.";
-				}
+			if (result)
+			{
+				TempData["SuccessMessage"] = "Trainer deleted successfully!";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Failed to delete trainer";
+			}
 
 
 			return RedirectToAction(nameof(Index));
