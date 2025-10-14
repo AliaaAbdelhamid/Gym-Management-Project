@@ -142,10 +142,13 @@ namespace GymManagementBLL.Services.Classes
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
 			var Member = Repo.GetById(MemberId);
 			if (Member is null) return false;
-			var activeBookings = _unitOfWork.GetRepository<BookingEntity>().GetAll(
-			   b => b.MemberId == MemberId && b.Session.StartDate > DateTime.UtcNow);
+			var sessionIds = _unitOfWork.GetRepository<BookingEntity>().GetAll(
+			   b => b.MemberId == MemberId).Select(S => S.SessionId); // 1 5 8
 
-			if (activeBookings.Any()) return false;
+			var hasFutureSessions = _unitOfWork.GetRepository<SessionEntity>()
+				.GetAll(S => sessionIds.Contains(S.Id) && S.StartDate > DateTime.Now).Any();
+
+			if (hasFutureSessions) return false;
 
 			var MemberShips = _unitOfWork.GetRepository<MembershipEntity>().GetAll(X => X.MemberId == MemberId);
 
@@ -168,10 +171,13 @@ namespace GymManagementBLL.Services.Classes
 
 		public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
 		{
-			if (IsEmailExists(UpdatedMember.Email))
-				return false;
-			if (IsPhoneExists(UpdatedMember.Phone))
-				return false;
+			var emailExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Email == UpdatedMember.Email && m.Id != Id);
+
+			var PhoneExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
+				m => m.Phone == UpdatedMember.Phone && m.Id != Id);
+
+			if (emailExist.Any() || PhoneExist.Any()) return false;
 
 			var Repo = _unitOfWork.GetRepository<MemberEntity>();
 			var Member = Repo.GetById(Id);

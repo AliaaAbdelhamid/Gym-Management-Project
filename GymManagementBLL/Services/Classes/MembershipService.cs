@@ -38,9 +38,7 @@ namespace GymManagementBLL.Services.Classes
 			var Repo = _unitOfWork.MembershipRepository;
 			var ActiveMemberships = Repo.GetAll(X => X.MemberId == MemberId && X.Status == "Active").FirstOrDefault();
 			if (ActiveMemberships is null) return false;
-			ActiveMemberships.EndDate = DateTime.Now;
-			ActiveMemberships.UpdatedAt = DateTime.Now;
-			Repo.Update(ActiveMemberships);
+			Repo.Delete(ActiveMemberships);
 			return _unitOfWork.SaveChanges() > 0;
 		}
 		public IEnumerable<MemberShipViewModel> GetAllMemberShips()

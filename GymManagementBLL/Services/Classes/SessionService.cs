@@ -64,7 +64,7 @@ namespace GymManagementBLL.Services.Classes
 				if (!IsCategoryExists(createSession.CategoryId)) return false;
 				if (!IsValidDateRange(createSession.StartDate, createSession.EndDate)) return false;
 				var sessionEntity = _mapper.Map<SessionEntity>(createSession);
-
+				sessionEntity.CreatedAt = DateTime.Now;
 				repo.Add(sessionEntity);
 				return _unitOfWork.SaveChanges() > 0;
 			}

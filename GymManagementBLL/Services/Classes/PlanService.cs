@@ -103,7 +103,7 @@ namespace GymManagementBLL.Services.Classes
 		#region Helper Methods
 		private bool HasActiveMemberShips(int Id)
 		{
-			var activeMemberships = _unitOfWork.GetRepository<MembershipEntity>().GetAll(m => m.PlanId == Id);
+			var activeMemberships = _unitOfWork.GetRepository<MembershipEntity>().GetAll(m => m.PlanId == Id && m.Status == "Active");
 			if (activeMemberships.Any())
 				return true;
 			else

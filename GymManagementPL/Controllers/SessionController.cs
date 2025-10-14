@@ -43,7 +43,12 @@ namespace GymManagementPL.Controllers
 				LoadDropdowns();
 				return View(model);
 			}
-
+			if (model.StartDate <= DateTime.Now)
+			{
+				ModelState.AddModelError("StartDate", "Start date must be before Current Time");
+				LoadDropdowns();
+				return View(model);
+			}
 			try
 			{
 				var result = _sessionService.CreateSession(model);
@@ -182,7 +187,6 @@ namespace GymManagementPL.Controllers
 		{
 			var trainers = _sessionService.GetTrainersForDropDown();
 			var categories = _sessionService.GetCategoriesForDropDown();
-
 			ViewBag.Trainers = new SelectList(trainers, "Id", "Name");
 			ViewBag.Categories = new SelectList(categories, "Id", "Name");
 		}

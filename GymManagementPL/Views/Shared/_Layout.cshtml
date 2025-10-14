@@ -21,7 +21,7 @@
         <!-- ^ navbar -->
         <nav class="navbar navbar-expand-lg bg-white my-3">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                     <img src="~/images/logo.jpg" alt="" />
                 </a>
                 <button class="navbar-toggler"
@@ -57,12 +57,12 @@
                                asp-action="Index" asp-controller="Plan">Plans</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "MemberShip" ? "active" : "text-black-alternative")"
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Membership" ? "active" : "text-black-alternative")"
                                asp-action="Index" asp-controller="MemberShip">MemberShips</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "SessionsSchedule" ? "active" : "text-black-alternative")"
-                               asp-action="Index" asp-controller="MemberShips">Sessions Schedule</a>
+                            <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5 @(currentController == "Booking" ? "active" : "text-black-alternative")"
+                               asp-action="Index" asp-controller="Booking">Sessions Schedule</a>
                         </li>
                     </ul>
                 </div>
