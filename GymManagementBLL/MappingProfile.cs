@@ -17,6 +17,7 @@ namespace GymManagementBLL
 			MapSession();
 			MapMemberships();
 			MapMember();
+			MapPlan();
 		}
 
 		private void MapTrainer()
