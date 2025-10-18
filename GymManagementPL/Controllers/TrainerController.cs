@@ -131,7 +131,8 @@ namespace GymManagementPL.Controllers
 				return RedirectToAction(nameof(Index));
 			}
 
-			return View(trainer);
+			ViewBag.TrainerId = trainer.Id;
+			return View();
 		}
 
 		// POST: Trainer/DeleteConfirmed

@@ -35,12 +35,15 @@ namespace GymManagementBLL
 				.ForMember(dist => dist.City, opt => opt.MapFrom(src => src.Address.City))
 				.ForMember(dist => dist.BuildingNumber, opt => opt.MapFrom(src => src.Address.BuildingNumber));
 
-			CreateMap<UpdateTrainerViewModel, TrainerEntity>().ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+			CreateMap<UpdateTrainerViewModel, TrainerEntity>()
+			.ForMember(dest => dest.Name, opt => opt.Ignore())
+			.AfterMap((src, dest) =>
 			{
-				BuildingNumber = src.BuildingNumber,
-				Street = src.Street,
-				City = src.City
-			}));
+				dest.Address.BuildingNumber = src.BuildingNumber;
+				dest.Address.City = src.City;
+				dest.Address.Street = src.Street;
+				dest.UpdatedAt = DateTime.Now;
+			});
 		}
 		private void MapSession()
 		{
@@ -55,22 +58,6 @@ namespace GymManagementBLL
 			CreateMap<TrainerEntity, TrainerSelectViewModel>();
 			CreateMap<CategoryEntity, CategorySelectViewModel>()
 				.ForMember(dist => dist.Name, opt => opt.MapFrom(src => src.CategoryName));
-		}
-		private void MapMemberships()
-		{
-			CreateMap<MembershipEntity, MemberShipForMemberViewModel>()
-					 .ForMember(dist => dist.MemberName, Option => Option.MapFrom(Src => Src.Member.Name))
-					 .ForMember(dist => dist.PlanName, Option => Option.MapFrom(Src => Src.Plan.Name))
-					 .ForMember(dist => dist.StartDate, Option => Option.MapFrom(X => X.CreatedAt));
-
-			CreateMap<MembershipEntity, MemberShipViewModel>()
-					 .ForMember(dist => dist.MemberName, Option => Option.MapFrom(Src => Src.Member.Name))
-					 .ForMember(dist => dist.PlanName, Option => Option.MapFrom(Src => Src.Plan.Name))
-					 					 .ForMember(dist => dist.StartDate, Option => Option.MapFrom(X => X.CreatedAt));
-
-			CreateMap<CreateMemberShipViewModel, MembershipEntity>();
-			CreateMap<MemberEntity, MemberSelectListViewModel>();
-			CreateMap<PlanEntity, PlanSelectListViewModel>();
 		}
 		private void MapMember()
 		{
@@ -105,7 +92,6 @@ namespace GymManagementBLL
 					dest.UpdatedAt = DateTime.Now;
 				});
 		}
-
 		private void MapPlan()
 		{
 			CreateMap<PlanEntity, PlanViewModel>();
@@ -114,6 +100,22 @@ namespace GymManagementBLL
 		   .ForMember(dest => dest.Name, opt => opt.Ignore())
 		   .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => DateTime.Now));
 
+		}
+		private void MapMemberships()
+		{
+			CreateMap<MembershipEntity, MemberShipForMemberViewModel>()
+					 .ForMember(dist => dist.MemberName, Option => Option.MapFrom(Src => Src.Member.Name))
+					 .ForMember(dist => dist.PlanName, Option => Option.MapFrom(Src => Src.Plan.Name))
+					 .ForMember(dist => dist.StartDate, Option => Option.MapFrom(X => X.CreatedAt));
+
+			CreateMap<MembershipEntity, MemberShipViewModel>()
+					 .ForMember(dist => dist.MemberName, Option => Option.MapFrom(Src => Src.Member.Name))
+					 .ForMember(dist => dist.PlanName, Option => Option.MapFrom(Src => Src.Plan.Name))
+					 					 .ForMember(dist => dist.StartDate, Option => Option.MapFrom(X => X.CreatedAt));
+
+			CreateMap<CreateMemberShipViewModel, MembershipEntity>();
+			CreateMap<MemberEntity, MemberSelectListViewModel>();
+			CreateMap<PlanEntity, PlanSelectListViewModel>();
 		}
 	}
 }

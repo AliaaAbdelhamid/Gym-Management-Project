@@ -55,7 +55,9 @@
 
                 <div class="col-12 col-md-6">
                     <label asp-for="Gender" class="form-label"></label>
-                    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select"></select>
+                    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
+                        <option value="">-- Select Gender --</option>
+                    </select>
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
 

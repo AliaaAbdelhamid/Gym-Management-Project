@@ -37,37 +37,17 @@ namespace GymManagementPL.Controllers
 				LoadDropdowns();
 				return View(model);
 			}
-			if (model.EndDate <= model.StartDate)
-			{
-				ModelState.AddModelError("EndDate", "End date must be after start date");
-				LoadDropdowns();
-				return View(model);
-			}
-			if (model.StartDate <= DateTime.Now)
-			{
-				ModelState.AddModelError("StartDate", "Start date must be before Current Time");
-				LoadDropdowns();
-				return View(model);
-			}
-			try
-			{
-				var result = _sessionService.CreateSession(model);
 
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Session created successfully!";
-					return RedirectToAction(nameof(Index));
-				}
-				else
-				{
-					ModelState.AddModelError("", "Failed to create session. Please verify trainer and category exist.");
-					LoadDropdowns();
-					return View(model);
-				}
-			}
-			catch (Exception)
+			var result = _sessionService.CreateSession(model);
+
+			if (result)
 			{
-				ModelState.AddModelError("", "An error occurred while creating the session.");
+				TempData["SuccessMessage"] = "Session created successfully!";
+				return RedirectToAction(nameof(Index));
+			}
+			else
+			{
+				ModelState.AddModelError("", "Failed to create session. Please verify trainer and category exist.");
 				LoadDropdowns();
 				return View(model);
 			}
@@ -112,34 +92,18 @@ namespace GymManagementPL.Controllers
 				LoadDropdowns();
 				return View(model);
 			}
-			if (model.EndDate <= model.StartDate)
+			var result = _sessionService.UpdateSession(id, model);
+
+			if (result)
 			{
-				ModelState.AddModelError("EndDate", "End date must be after start date");
-				LoadDropdowns();
-				return View(model);
+				TempData["SuccessMessage"] = "Session updated successfully!";
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Failed to update session.";
 			}
 
-			try
-			{
-				var result = _sessionService.UpdateSession(id, model);
-
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Session updated successfully!";
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Failed to update session.";
-				}
-
-				return RedirectToAction(nameof(Index));
-			}
-			catch (Exception)
-			{
-				ModelState.AddModelError("", "An error occurred while updating the session.");
-				LoadDropdowns();
-				return View(model);
-			}
+			return RedirectToAction(nameof(Index));
 		}
 		#endregion
 
@@ -160,24 +124,16 @@ namespace GymManagementPL.Controllers
 		[HttpPost]
 		public IActionResult DeleteConfirmed(int id)
 		{
-			try
-			{
-				var result = _sessionService.RemoveSession(id);
+			var result = _sessionService.RemoveSession(id);
 
-				if (result)
-				{
-					TempData["SuccessMessage"] = "Session deleted successfully!";
-				}
-				else
-				{
-					TempData["ErrorMessage"] = "Session cannot be deleted";
-				}
-			}
-			catch (Exception)
+			if (result)
 			{
-				TempData["ErrorMessage"] = "An error occurred while deleting the session.";
+				TempData["SuccessMessage"] = "Session deleted successfully!";
 			}
-
+			else
+			{
+				TempData["ErrorMessage"] = "Session cannot be deleted";
+			}
 			return RedirectToAction(nameof(Index));
 		}
 		#endregion

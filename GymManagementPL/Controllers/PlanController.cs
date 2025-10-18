@@ -24,6 +24,11 @@ namespace GymManagementPL.Controllers
 		#region Plan Details
 		public IActionResult Details(int id)
 		{
+			if (id <= 0)
+			{
+				TempData["ErrorMessage"] = "Id Of Plan Can Not Be 0 Or Negative";
+				return RedirectToAction(nameof(Index));
+			}
 			var plan = _planService.GetPlanById(id);
 
 			if (plan == null)
@@ -39,6 +44,11 @@ namespace GymManagementPL.Controllers
 		#region Edit Plan
 		public IActionResult Edit(int id)
 		{
+			if (id <= 0)
+			{
+				TempData["ErrorMessage"] = "Id Of Plan Can Not Be 0 Or Negative";
+				return RedirectToAction(nameof(Index));
+			}
 			var plan = _planService.GetPlanToUpdate(id);
 
 			if (plan == null)
@@ -55,6 +65,7 @@ namespace GymManagementPL.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
+				ModelState.AddModelError("WrongData", "Check Data Validation");
 				return View(model);
 			}
 
@@ -77,6 +88,11 @@ namespace GymManagementPL.Controllers
 		[HttpPost]
 		public IActionResult Activate(int id)
 		{
+			if (id <= 0)
+			{
+				TempData["ErrorMessage"] = "Id Of Plan Can Not Be 0 Or Negative";
+				return RedirectToAction(nameof(Index));
+			}
 			var result = _planService.Activate(id);
 
 			if (result)

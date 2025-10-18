@@ -1,5 +1,4 @@
-﻿@model MemberViewModel
-@{
+﻿@{
     ViewData["Title"] = "Delete Member";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,14 +7,6 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-5 shadow text-center">
-                <div class="mb-4">
-                    <img src="~/images/@Model.Photo"
-                         alt="@Model.Name"
-                         class="rounded-circle mb-3"
-                         style="width: 100px; height: 100px; object-fit: cover;" />
-                    <h4 class="text-primary-color mb-2">@Model.Name</h4>
-                </div>
-
                 <p class="fs-3 text-primary-color mb-4">Are you sure you want to delete this member?</p>
 
                 <div class="alert alert-warning text-start" role="alert">
@@ -23,7 +14,7 @@
                 </div>
 
                 <form asp-action="DeleteConfirmed" method="post" class="mt-4">
-                    <input type="hidden" asp-for="Id" readonly />
+                    <input type="hidden" readonly name="id" value="@ViewBag.MemberId" />
                     <div class="buttons d-flex justify-content-between gap-3">
                         <a asp-controller="Member" asp-action="Index" class="btn-outline flex-fill">NO</a>
                         <button type="submit" class="btn-fill flex-fill">Yes</button>

@@ -118,6 +118,11 @@ namespace GymManagementPL.Controllers
 
 		public IActionResult Delete([FromRoute] int id)
 		{
+			if (id <= 0)
+			{
+				TempData["ErrorMessage"] = "Id Of Member Can Not Be 0 Or Negative";
+				return RedirectToAction(nameof(Index));
+			}
 			var member = _memberService.GetMemberDetails(id);
 
 			if (member == null)
@@ -125,8 +130,8 @@ namespace GymManagementPL.Controllers
 				TempData["ErrorMessage"] = "Member not found.";
 				return RedirectToAction(nameof(Index));
 			}
-
-			return View(member);
+			ViewBag.MemberId = id;
+			return View();
 		}
 
 		[HttpPost]
