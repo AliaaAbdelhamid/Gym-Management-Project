@@ -1,4 +1,4 @@
-﻿@model UpdateTrainerViewModel
+﻿@model TrainerToUpdateViewModel
 @{
     ViewData["Title"] = "Edit Trainer";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,6 +19,7 @@
                         <h4 class="mb-0 text-black">@Model.Name</h4>
                     </div>
                     <form asp-action="Edit" method="post">
+                        <input hidden asp-for="Name" />
                         <!-- Personal Information -->
                         <div class="section-header mb-3">
                             <h5 class="text-primary fw-bold">Personal Information</h5>

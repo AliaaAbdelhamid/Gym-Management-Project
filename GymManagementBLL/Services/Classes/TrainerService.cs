@@ -73,7 +73,7 @@ namespace GymManagementBLL.Services.Classes
 			return _unitOfWork.SaveChanges() > 0;
 
 		}
-		public bool UpdateTrainerDetails(UpdateTrainerViewModel updatedTrainer, int trainerId)
+		public bool UpdateTrainerDetails(TrainerToUpdateViewModel updatedTrainer, int trainerId)
 		{
 			var emailExist = _unitOfWork.GetRepository<MemberEntity>().GetAll(
 				m => m.Email == updatedTrainer.Email && m.Id != trainerId);

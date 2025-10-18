@@ -80,24 +80,12 @@ namespace GymManagementPL.Controllers
 				TempData["ErrorMessage"] = "Trainer not found.";
 				return RedirectToAction(nameof(Index));
 			}
-
-			var updateModel = new UpdateTrainerViewModel
-			{
-				Name = trainer.Name,
-				Email = trainer.Email,
-				Phone = trainer.Phone,
-				Specialties = trainer.Specialties,
-				BuildingNumber = trainer.BuildingNumber,
-				City = trainer.City,
-				Street = trainer.Street
-			};
-
-			return View(updateModel);
+			return View(trainer);
 		}
 
 		// POST: Trainer/Edit/5
 		[HttpPost]
-		public IActionResult Edit(int id, UpdateTrainerViewModel model)
+		public IActionResult Edit(int id, TrainerToUpdateViewModel model)
 		{
 			if (!ModelState.IsValid)
 			{
